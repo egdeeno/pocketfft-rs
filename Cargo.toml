@@ -1,0 +1,34 @@
+[package]
+name = "pocketfft-rs"
+version = "1.0.0"
+edition = "2018"
+rust-version = "1.56"
+description = "Rust pocketfft lib"
+documentation = "https://github.com/egdeeno/pocketfft-rs"
+readme = "README.md"
+homepage = "https://github.com/egdeeno/pocketfft-rs"
+repository = "https://github.com/egdeeno/pocketfft-rs"
+license-file = "LICENSE"
+keywords = ["FFT"]
+
+[lib]
+name = "pocketfft_rs"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[profile.release]
+opt-level = 'z'
+lto = true # enable link time optimization
+panic = "abort" # disable stack unwinding on panic
+strip = true
+
+[profile.dev]
+opt-level = 0
+lto = false # disable link time optimization
+panic = "abort" # disable stack unwinding on panic
+
+[profile.test]
+opt-level = 3
+lto = false # disable link time optimization
+
+[dev-dependencies]
+libc = "0.2.98"

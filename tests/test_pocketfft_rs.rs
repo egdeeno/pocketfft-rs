@@ -40,7 +40,7 @@ fn test_real_unsafe() {
         assert!(err<=EPSILON, "problem at real length {}: {}",length,err);
         errsum+=err;
     }
-    println!("test_real errsum: {:e}",errsum);
+    println!("test_real_unsafe errsum: {:e}",errsum);
 }
 
 
@@ -62,7 +62,7 @@ fn test_complex_unsafe() {
         assert!(err<=EPSILON, "problem at real length {}: {}",length,err);
         errsum+=err;
     }
-    println!("test_complex errsum: {:e}",errsum);
+    println!("test_complex_unsafe errsum: {:e}",errsum);
 }
 
 #[test]
@@ -80,7 +80,7 @@ fn test_real_safe() {
         assert!(err<=EPSILON, "problem at real length {}: {}",length,err);
         errsum+=err;
     }
-    println!("test_real errsum: {:e}",errsum);
+    println!("test_real_safe errsum: {:e}",errsum);
 }
 
 #[test]
@@ -98,5 +98,5 @@ fn test_complex_safe() {
         assert!(err<=EPSILON, "problem at real length {}: {}",length,err);
         errsum+=err;
     }
-    println!("test_complex errsum: {:e}",errsum);
+    println!("test_complex_safe errsum: {:e}",errsum);
 }

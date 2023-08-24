@@ -31,4 +31,4 @@ opt-level = 3
 lto = false # disable link time optimization
 
 [dev-dependencies]
-libc = "0.2.98"
+libc = "0.2.147"

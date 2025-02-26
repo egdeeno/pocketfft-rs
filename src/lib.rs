@@ -1,6 +1,4 @@
-#![allow(
-    non_camel_case_types,
-)]
+#![allow(non_camel_case_types)]
 use std::ptr::null_mut;
 use std::slice::from_raw_parts_mut;
 
@@ -112,8 +110,7 @@ pub struct CfftpPlan {
     pub fct: [CfftpFctdata; NFCT],
 }
 
-#[derive(Default)]
-#[derive(Copy,Clone)]
+#[derive(Default, Copy, Clone)]
 pub struct CfftpFctdata {
     pub fct: usize,
     pub tw_index: usize,
@@ -434,39 +431,27 @@ fn pass2b(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
 
     if ido == 1 {
         for k in 0..l1 {
-            ch[ido * k].r =
-                cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
-            ch[ido * k].i =
-                cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
-            ch[ido * (k + l1)].r =
-                cc[ido * cdim * k].r - cc[ido * (1 + cdim * k)].r;
-            ch[ido * (k + l1)].i =
-                cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
+            ch[ido * k].r = cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
+            ch[ido * k].i = cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
+            ch[ido * (k + l1)].r = cc[ido * cdim * k].r - cc[ido * (1 + cdim * k)].r;
+            ch[ido * (k + l1)].i = cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
         }
     } else {
         for k in 0..l1 {
-            ch[ido * k].r =
-                cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
-            ch[ido * k].i =
-                cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
+            ch[ido * k].r = cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
+            ch[ido * k].i = cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
 
-            ch[ido * (k + l1)].r =
-                cc[ido * cdim * (k)].r - cc[ido * (1 + cdim * k)].r;
-            ch[ido * (k + l1)].i =
-                cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
+            ch[ido * (k + l1)].r = cc[ido * cdim * (k)].r - cc[ido * (1 + cdim * k)].r;
+            ch[ido * (k + l1)].i = cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
             for i in 1..ido {
                 let mut t: cmplx = cmplx { r: 0.0, i: 0.0 }; //cmplx { r: 0.0, i: 0.0 };
-                ch[i + ido * k].r =
-                    cc[i + ido * cdim * k].r + cc[i + ido * (1 + cdim * k)].r;
-                ch[i + ido * k].i =
-                    cc[i + ido * cdim * k].i + cc[i + ido * (1 + cdim * k)].i;
+                ch[i + ido * k].r = cc[i + ido * cdim * k].r + cc[i + ido * (1 + cdim * k)].r;
+                ch[i + ido * k].i = cc[i + ido * cdim * k].i + cc[i + ido * (1 + cdim * k)].i;
                 t.r = cc[i + ido * cdim * k].r - cc[i + ido * (1 + cdim * k)].r;
                 t.i = cc[i + ido * cdim * k].i - cc[i + ido * (1 + cdim * k)].i;
 
-                ch[i + ido * (k + l1)].r =
-                    wa[i - 1].r * t.r - wa[i - 1].i * t.i;
-                ch[i + ido * (k + l1)].i =
-                    wa[i - 1].r * t.i + wa[i - 1].i * t.r;
+                ch[i + ido * (k + l1)].r = wa[i - 1].r * t.r - wa[i - 1].i * t.i;
+                ch[i + ido * (k + l1)].i = wa[i - 1].r * t.i + wa[i - 1].i * t.r;
             }
         }
     }
@@ -477,39 +462,27 @@ fn pass2f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
 
     if ido == 1 {
         for k in 0..l1 {
-            ch[ido * k].r =
-                cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
-            ch[ido * k].i =
-                cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
-            ch[ido * (k + l1)].r =
-                cc[ido * cdim * k].r - cc[ido * (1 + cdim * k)].r;
-            ch[ido * (k + l1)].i =
-                cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
+            ch[ido * k].r = cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
+            ch[ido * k].i = cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
+            ch[ido * (k + l1)].r = cc[ido * cdim * k].r - cc[ido * (1 + cdim * k)].r;
+            ch[ido * (k + l1)].i = cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
         }
     } else {
         for k in 0..l1 {
-            ch[ido * k].r =
-                cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
-            ch[ido * k].i =
-                cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
-            ch[ido * (k + l1)].r =
-                cc[ido * cdim * k].r - cc[ido * (1 + cdim * k)].r;
-            ch[ido * (k + l1)].i =
-                cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
+            ch[ido * k].r = cc[ido * cdim * k].r + cc[ido * (1 + cdim * k)].r;
+            ch[ido * k].i = cc[ido * cdim * k].i + cc[ido * (1 + cdim * k)].i;
+            ch[ido * (k + l1)].r = cc[ido * cdim * k].r - cc[ido * (1 + cdim * k)].r;
+            ch[ido * (k + l1)].i = cc[ido * cdim * k].i - cc[ido * (1 + cdim * k)].i;
             for i in 1..ido {
                 let mut t: cmplx = cmplx { r: 0.0, i: 0.0 };
 
-                ch[i + ido * k].r =
-                    cc[i + ido * cdim * k].r + cc[i + ido * (1 + cdim * k)].r;
-                ch[i + ido * k].i =
-                    cc[i + ido * cdim * k].i + cc[i + ido * (1 + cdim * k)].i;
+                ch[i + ido * k].r = cc[i + ido * cdim * k].r + cc[i + ido * (1 + cdim * k)].r;
+                ch[i + ido * k].i = cc[i + ido * cdim * k].i + cc[i + ido * (1 + cdim * k)].i;
                 t.r = cc[i + ido * cdim * k].r - cc[i + ido * (1 + cdim * k)].r;
                 t.i = cc[i + ido * cdim * k].i - cc[i + ido * (1 + cdim * k)].i;
 
-                ch[i + ido * (k + l1)].r =
-                    wa[i - 1].r * t.r + wa[i - 1].i * t.i;
-                ch[i + ido * (k + l1)].i =
-                    wa[i - 1].r * t.i - wa[i - 1].i * t.r;
+                ch[i + ido * (k + l1)].r = wa[i - 1].r * t.r + wa[i - 1].i * t.i;
+                ch[i + ido * (k + l1)].i = wa[i - 1].r * t.i - wa[i - 1].i * t.r;
             }
         }
     }
@@ -608,10 +581,10 @@ fn pass3b(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.i
                     + wa[i - 1 + (1 - 1) * (ido - 1)].i * da.r;
 
-                ch[i + ido * (k + l1 * 2)].r = wa[i - 1 + (ido - 1)].r * db.r
-                    - wa[i - 1 + (ido - 1)].i * db.i;
-                ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r * db.i
-                    + wa[i - 1 + (ido - 1)].i * db.r;
+                ch[i + ido * (k + l1 * 2)].r =
+                    wa[i - 1 + (ido - 1)].r * db.r - wa[i - 1 + (ido - 1)].i * db.i;
+                ch[i + ido * (k + l1 * 2)].i =
+                    wa[i - 1 + (ido - 1)].r * db.i + wa[i - 1 + (ido - 1)].i * db.r;
             }
         }
     }
@@ -657,14 +630,10 @@ fn pass3f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t1: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t2: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t1.r =
-                        cc[ido * (1 + cdim * k)].r + cc[ido * (2 + cdim * k)].r;
-                    t1.i =
-                        cc[ido * (1 + cdim * k)].i + cc[ido * (2 + cdim * k)].i;
-                    t2.r =
-                        cc[ido * (1 + cdim * k)].r - cc[ido * (2 + cdim * k)].r;
-                    t2.i =
-                        cc[ido * (1 + cdim * k)].i - cc[ido * (2 + cdim * k)].i;
+                    t1.r = cc[ido * (1 + cdim * k)].r + cc[ido * (2 + cdim * k)].r;
+                    t1.i = cc[ido * (1 + cdim * k)].i + cc[ido * (2 + cdim * k)].i;
+                    t2.r = cc[ido * (1 + cdim * k)].r - cc[ido * (2 + cdim * k)].r;
+                    t2.i = cc[ido * (1 + cdim * k)].i - cc[ido * (2 + cdim * k)].i;
                 }
                 ch[ido * k].r = t0.r + t1.r;
                 ch[ido * k].i = t0.i + t1.i;
@@ -688,14 +657,10 @@ fn pass3f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t1: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t2: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t1.r =
-                        cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (2 + cdim * k)].r;
-                    t1.i =
-                        cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (2 + cdim * k)].i;
-                    t2.r =
-                        cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (2 + cdim * k)].r;
-                    t2.i =
-                        cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (2 + cdim * k)].i;
+                    t1.r = cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (2 + cdim * k)].r;
+                    t1.i = cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (2 + cdim * k)].i;
+                    t2.r = cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (2 + cdim * k)].r;
+                    t2.i = cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (2 + cdim * k)].i;
                 }
                 ch[(i) + ido * k].r = t0.r + t1.r;
                 ch[(i) + ido * k].i = t0.i + t1.i;
@@ -715,20 +680,16 @@ fn pass3f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                         db.i = ca.i - cb.i;
                     }
                     {
-                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.r
                             + wa[i - 1 + (1 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.i
                             - wa[i - 1 + (1 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 2)].r = wa[i - 1 + (ido - 1)].r
-                            * db.r
-                            + wa[i - 1 + (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r
-                            * db.i
-                            - wa[i - 1 + (ido - 1)].i * db.r;
+                        ch[i + ido * (k + l1 * 2)].r =
+                            wa[i - 1 + (ido - 1)].r * db.r + wa[i - 1 + (ido - 1)].i * db.i;
+                        ch[i + ido * (k + l1 * 2)].i =
+                            wa[i - 1 + (ido - 1)].r * db.i - wa[i - 1 + (ido - 1)].i * db.r;
                     }
                 }
             }
@@ -783,24 +744,16 @@ fn pass4b(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t3: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t4: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t2.r =
-                        cc[ido * cdim * k].r + cc[ido * (2 + cdim * k)].r;
-                    t2.i =
-                        cc[ido * cdim * k].i + cc[ido * (2 + cdim * k)].i;
-                    t1.r =
-                        cc[ido * cdim * k].r - cc[ido * (2 + cdim * k)].r;
-                    t1.i =
-                        cc[ido * cdim * k].i - cc[ido * (2 + cdim * k)].i;
+                    t2.r = cc[ido * cdim * k].r + cc[ido * (2 + cdim * k)].r;
+                    t2.i = cc[ido * cdim * k].i + cc[ido * (2 + cdim * k)].i;
+                    t1.r = cc[ido * cdim * k].r - cc[ido * (2 + cdim * k)].r;
+                    t1.i = cc[ido * cdim * k].i - cc[ido * (2 + cdim * k)].i;
                 }
                 {
-                    t3.r =
-                        cc[ido * (1 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
-                    t3.i =
-                        cc[ido * (1 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
-                    t4.r =
-                        cc[ido * (1 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
-                    t4.i =
-                        cc[ido * (1 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
+                    t3.r = cc[ido * (1 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
+                    t3.i = cc[ido * (1 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
+                    t4.r = cc[ido * (1 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
+                    t4.i = cc[ido * (1 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
                 }
                 {
                     let tmp = t4.r;
@@ -928,24 +881,16 @@ fn pass4f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t3: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t4: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t2.r =
-                        cc[ido * cdim * k].r + cc[ido * (2 + cdim * k)].r;
-                    t2.i =
-                        cc[ido * cdim * k].i + cc[ido * (2 + cdim * k)].i;
-                    t1.r =
-                        cc[ido * cdim * k].r - cc[ido * (2 + cdim * k)].r;
-                    t1.i =
-                        cc[ido * cdim * k].i - cc[ido * (2 + cdim * k)].i;
+                    t2.r = cc[ido * cdim * k].r + cc[ido * (2 + cdim * k)].r;
+                    t2.i = cc[ido * cdim * k].i + cc[ido * (2 + cdim * k)].i;
+                    t1.r = cc[ido * cdim * k].r - cc[ido * (2 + cdim * k)].r;
+                    t1.i = cc[ido * cdim * k].i - cc[ido * (2 + cdim * k)].i;
                 }
                 {
-                    t3.r =
-                        cc[ido * (1 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
-                    t3.i =
-                        cc[ido * (1 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
-                    t4.r =
-                        cc[ido * (1 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
-                    t4.i =
-                        cc[ido * (1 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
+                    t3.r = cc[ido * (1 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
+                    t3.i = cc[ido * (1 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
+                    t4.r = cc[ido * (1 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
+                    t4.i = cc[ido * (1 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
                 }
                 {
                     let tmp = -t4.r;
@@ -1092,24 +1037,16 @@ fn pass5b(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t3: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t4: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t1.r =
-                        cc[ido * (1 + cdim * k)].r + cc[ido * (4 + cdim * k)].r;
-                    t1.i =
-                        cc[ido * (1 + cdim * k)].i + cc[ido * (4 + cdim * k)].i;
-                    t4.r =
-                        cc[ido * (1 + cdim * k)].r - cc[ido * (4 + cdim * k)].r;
-                    t4.i =
-                        cc[ido * (1 + cdim * k)].i - cc[ido * (4 + cdim * k)].i;
+                    t1.r = cc[ido * (1 + cdim * k)].r + cc[ido * (4 + cdim * k)].r;
+                    t1.i = cc[ido * (1 + cdim * k)].i + cc[ido * (4 + cdim * k)].i;
+                    t4.r = cc[ido * (1 + cdim * k)].r - cc[ido * (4 + cdim * k)].r;
+                    t4.i = cc[ido * (1 + cdim * k)].i - cc[ido * (4 + cdim * k)].i;
                 }
                 {
-                    t2.r =
-                        cc[ido * (2 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
-                    t2.i =
-                        cc[ido * (2 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
-                    t3.r =
-                        cc[ido * (2 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
-                    t3.i =
-                        cc[ido * (2 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
+                    t2.r = cc[ido * (2 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
+                    t2.i = cc[ido * (2 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
+                    t3.r = cc[ido * (2 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
+                    t3.i = cc[ido * (2 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
                 }
                 ch[ido * k].r = t0.r + t1.r + t2.r;
                 ch[ido * k].i = t0.i + t1.i + t2.i;
@@ -1149,24 +1086,16 @@ fn pass5b(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t3: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t4: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t1.r =
-                        cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (4 + cdim * k)].r;
-                    t1.i =
-                        cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (4 + cdim * k)].i;
-                    t4.r =
-                        cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (4 + cdim * k)].r;
-                    t4.i =
-                        cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (4 + cdim * k)].i;
+                    t1.r = cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (4 + cdim * k)].r;
+                    t1.i = cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (4 + cdim * k)].i;
+                    t4.r = cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (4 + cdim * k)].r;
+                    t4.i = cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (4 + cdim * k)].i;
                 }
                 {
-                    t2.r =
-                        cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (3 + cdim * k)].r;
-                    t2.i =
-                        cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (3 + cdim * k)].i;
-                    t3.r =
-                        cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (3 + cdim * k)].r;
-                    t3.i =
-                        cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (3 + cdim * k)].i;
+                    t2.r = cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (3 + cdim * k)].r;
+                    t2.i = cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (3 + cdim * k)].i;
+                    t3.r = cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (3 + cdim * k)].r;
+                    t3.i = cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (3 + cdim * k)].i;
                 }
                 ch[i + ido * k].r = t0.r + t1.r + t2.r;
                 ch[i + ido * k].i = t0.i + t1.i + t2.i;
@@ -1186,19 +1115,15 @@ fn pass5b(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                         db.i = ca.i - cb.i;
                     }
                     {
-                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.r
                             - wa[i - 1 + (1 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.i
                             + wa[i - 1 + (1 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r * db.r
                             - wa[i - 1 + (4 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r * db.i
                             + wa[i - 1 + (4 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -1218,19 +1143,15 @@ fn pass5b(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                         db.i = ca.i - cb.i;
                     }
                     {
-                        ch[i + ido * (k + l1 * 2)].r = wa[i - 1 + (ido - 1)].r
-                            * da.r
-                            - wa[i - 1 + (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r
-                            * da.i
-                            + wa[i - 1 + (ido - 1)].i * da.r;
+                        ch[i + ido * (k + l1 * 2)].r =
+                            wa[i - 1 + (ido - 1)].r * da.r - wa[i - 1 + (ido - 1)].i * da.i;
+                        ch[i + ido * (k + l1 * 2)].i =
+                            wa[i - 1 + (ido - 1)].r * da.i + wa[i - 1 + (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r * db.r
                             - wa[i - 1 + (3 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r * db.i
                             + wa[i - 1 + (3 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -1306,24 +1227,16 @@ fn pass5f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t3: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t4: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t1.r =
-                        cc[ido * (1 + cdim * k)].r + cc[ido * (4 + cdim * k)].r;
-                    t1.i =
-                        cc[ido * (1 + cdim * k)].i + cc[ido * (4 + cdim * k)].i;
-                    t4.r =
-                        cc[ido * (1 + cdim * k)].r - cc[ido * (4 + cdim * k)].r;
-                    t4.i =
-                        cc[ido * (1 + cdim * k)].i - cc[ido * (4 + cdim * k)].i;
+                    t1.r = cc[ido * (1 + cdim * k)].r + cc[ido * (4 + cdim * k)].r;
+                    t1.i = cc[ido * (1 + cdim * k)].i + cc[ido * (4 + cdim * k)].i;
+                    t4.r = cc[ido * (1 + cdim * k)].r - cc[ido * (4 + cdim * k)].r;
+                    t4.i = cc[ido * (1 + cdim * k)].i - cc[ido * (4 + cdim * k)].i;
                 }
                 {
-                    t2.r =
-                        cc[ido * (2 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
-                    t2.i =
-                        cc[ido * (2 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
-                    t3.r =
-                        cc[ido * (2 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
-                    t3.i =
-                        cc[ido * (2 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
+                    t2.r = cc[ido * (2 + cdim * k)].r + cc[ido * (3 + cdim * k)].r;
+                    t2.i = cc[ido * (2 + cdim * k)].i + cc[ido * (3 + cdim * k)].i;
+                    t3.r = cc[ido * (2 + cdim * k)].r - cc[ido * (3 + cdim * k)].r;
+                    t3.i = cc[ido * (2 + cdim * k)].i - cc[ido * (3 + cdim * k)].i;
                 }
                 ch[ido * k].r = t0.r + t1.r + t2.r;
                 ch[ido * k].i = t0.i + t1.i + t2.i;
@@ -1363,24 +1276,16 @@ fn pass5f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                 let mut t3: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t4: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t1.r =
-                        cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (4 + cdim * k)].r;
-                    t1.i =
-                        cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (4 + cdim * k)].i;
-                    t4.r =
-                        cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (4 + cdim * k)].r;
-                    t4.i =
-                        cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (4 + cdim * k)].i;
+                    t1.r = cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (4 + cdim * k)].r;
+                    t1.i = cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (4 + cdim * k)].i;
+                    t4.r = cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (4 + cdim * k)].r;
+                    t4.i = cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (4 + cdim * k)].i;
                 }
                 {
-                    t2.r =
-                        cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (3 + cdim * k)].r;
-                    t2.i =
-                        cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (3 + cdim * k)].i;
-                    t3.r =
-                        cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (3 + cdim * k)].r;
-                    t3.i =
-                        cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (3 + cdim * k)].i;
+                    t2.r = cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (3 + cdim * k)].r;
+                    t2.i = cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (3 + cdim * k)].i;
+                    t3.r = cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (3 + cdim * k)].r;
+                    t3.i = cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (3 + cdim * k)].i;
                 }
                 ch[i + ido * k].r = t0.r + t1.r + t2.r;
                 ch[i + ido * k].i = t0.i + t1.i + t2.i;
@@ -1400,19 +1305,15 @@ fn pass5f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                         db.i = ca.i - cb.i;
                     }
                     {
-                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.r
                             + wa[i - 1 + (1 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.i
                             - wa[i - 1 + (1 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r * db.r
                             + wa[i - 1 + (4 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r * db.i
                             - wa[i - 1 + (4 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -1432,19 +1333,15 @@ fn pass5f(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx]) {
                         db.i = ca.i - cb.i;
                     }
                     {
-                        ch[i + ido * (k + l1 * 2)].r = wa[(i) - 1 + (ido - 1)].r
-                            * da.r
-                            + wa[i - 1 + (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r
-                            * da.i
-                            - wa[i - 1 + (ido - 1)].i * da.r;
+                        ch[i + ido * (k + l1 * 2)].r =
+                            wa[(i) - 1 + (ido - 1)].r * da.r + wa[i - 1 + (ido - 1)].i * da.i;
+                        ch[i + ido * (k + l1 * 2)].i =
+                            wa[i - 1 + (ido - 1)].r * da.i - wa[i - 1 + (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r * db.r
                             + wa[i - 1 + (3 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r * db.i
                             - wa[i - 1 + (3 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -1545,34 +1442,22 @@ fn pass7(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], si
                 let mut t6: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t7: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t2.r =
-                        cc[ido * (1 + cdim * k)].r + cc[ido * (6 + cdim * k)].r;
-                    t2.i =
-                        cc[ido * (1 + cdim * k)].i + cc[ido * (6 + cdim * k)].i;
-                    t7.r =
-                        cc[ido * (1 + cdim * k)].r - cc[ido * (6 + cdim * k)].r;
-                    t7.i =
-                        cc[ido * (1 + cdim * k)].i - cc[ido * (6 + cdim * k)].i;
+                    t2.r = cc[ido * (1 + cdim * k)].r + cc[ido * (6 + cdim * k)].r;
+                    t2.i = cc[ido * (1 + cdim * k)].i + cc[ido * (6 + cdim * k)].i;
+                    t7.r = cc[ido * (1 + cdim * k)].r - cc[ido * (6 + cdim * k)].r;
+                    t7.i = cc[ido * (1 + cdim * k)].i - cc[ido * (6 + cdim * k)].i;
                 }
                 {
-                    t3.r =
-                        cc[ido * (2 + cdim * k)].r + cc[ido * (5 + cdim * k)].r;
-                    t3.i =
-                        cc[ido * (2 + cdim * k)].i + cc[ido * (5 + cdim * k)].i;
-                    t6.r =
-                        cc[ido * (2 + cdim * k)].r - cc[ido * (5 + cdim * k)].r;
-                    t6.i =
-                        cc[ido * (2 + cdim * k)].i - cc[ido * (5 + cdim * k)].i;
+                    t3.r = cc[ido * (2 + cdim * k)].r + cc[ido * (5 + cdim * k)].r;
+                    t3.i = cc[ido * (2 + cdim * k)].i + cc[ido * (5 + cdim * k)].i;
+                    t6.r = cc[ido * (2 + cdim * k)].r - cc[ido * (5 + cdim * k)].r;
+                    t6.i = cc[ido * (2 + cdim * k)].i - cc[ido * (5 + cdim * k)].i;
                 }
                 {
-                    t4.r =
-                        cc[ido * (3 + cdim * k)].r + cc[ido * (4 + cdim * k)].r;
-                    t4.i =
-                        cc[ido * (3 + cdim * k)].i + cc[ido * (4 + cdim * k)].i;
-                    t5.r =
-                        cc[ido * (3 + cdim * k)].r - cc[ido * (4 + cdim * k)].r;
-                    t5.i =
-                        cc[ido * (3 + cdim * k)].i - cc[ido * (4 + cdim * k)].i;
+                    t4.r = cc[ido * (3 + cdim * k)].r + cc[ido * (4 + cdim * k)].r;
+                    t4.i = cc[ido * (3 + cdim * k)].i + cc[ido * (4 + cdim * k)].i;
+                    t5.r = cc[ido * (3 + cdim * k)].r - cc[ido * (4 + cdim * k)].r;
+                    t5.i = cc[ido * (3 + cdim * k)].i - cc[ido * (4 + cdim * k)].i;
                 }
                 ch[ido * k].r = t1.r + t2.r + t3.r + t4.r;
                 ch[ido * k].i = t1.i + t2.i + t3.i + t4.i;
@@ -1629,34 +1514,22 @@ fn pass7(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], si
                 let mut t6: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t7: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t2.r =
-                        cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (6 + cdim * k)].r;
-                    t2.i =
-                        cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (6 + cdim * k)].i;
-                    t7.r =
-                        cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (6 + cdim * k)].r;
-                    t7.i =
-                        cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (6 + cdim * k)].i;
+                    t2.r = cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (6 + cdim * k)].r;
+                    t2.i = cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (6 + cdim * k)].i;
+                    t7.r = cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (6 + cdim * k)].r;
+                    t7.i = cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (6 + cdim * k)].i;
                 }
                 {
-                    t3.r =
-                        cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (5 + cdim * k)].r;
-                    t3.i =
-                        cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (5 + cdim * k)].i;
-                    t6.r =
-                        cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (5 + cdim * k)].r;
-                    t6.i =
-                        cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (5 + cdim * k)].i;
+                    t3.r = cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (5 + cdim * k)].r;
+                    t3.i = cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (5 + cdim * k)].i;
+                    t6.r = cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (5 + cdim * k)].r;
+                    t6.i = cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (5 + cdim * k)].i;
                 }
                 {
-                    t4.r =
-                        cc[i + ido * (3 + cdim * k)].r + cc[i + ido * (4 + cdim * k)].r;
-                    t4.i =
-                        cc[i + ido * (3 + cdim * k)].i + cc[i + ido * (4 + cdim * k)].i;
-                    t5.r =
-                        cc[i + ido * (3 + cdim * k)].r - cc[i + ido * (4 + cdim * k)].r;
-                    t5.i =
-                        cc[i + ido * (3 + cdim * k)].i - cc[i + ido * (4 + cdim * k)].i;
+                    t4.r = cc[i + ido * (3 + cdim * k)].r + cc[i + ido * (4 + cdim * k)].r;
+                    t4.i = cc[i + ido * (3 + cdim * k)].i + cc[i + ido * (4 + cdim * k)].i;
+                    t5.r = cc[i + ido * (3 + cdim * k)].r - cc[i + ido * (4 + cdim * k)].r;
+                    t5.i = cc[i + ido * (3 + cdim * k)].i - cc[i + ido * (4 + cdim * k)].i;
                 }
                 ch[i + ido * k].r = t1.r + t2.r + t3.r + t4.r;
                 ch[i + ido * k].i = t1.i + t2.i + t3.i + t4.i;
@@ -1678,19 +1551,15 @@ fn pass7(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], si
                         }
                     }
                     {
-                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (1 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (1 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 6)].r = wa[i - 1 + (6 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 6)].r = wa[i - 1 + (6 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (6 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 6)].i = wa[i - 1 + (6 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 6)].i = wa[i - 1 + (6 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (6 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -1712,19 +1581,15 @@ fn pass7(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], si
                         }
                     }
                     {
-                        ch[i + ido * (k + l1 * 2)].r = wa[i - 1 + (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1 * 2)].r = wa[i - 1 + (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 5)].r = wa[i - 1 + (5 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 5)].r = wa[i - 1 + (5 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (5 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 5)].i = wa[i - 1 + (5 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 5)].i = wa[i - 1 + (5 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (5 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -1746,19 +1611,15 @@ fn pass7(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], si
                         }
                     }
                     {
-                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (3 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (3 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (4 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (4 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -1794,22 +1655,16 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
             let mut t10: cmplx = cmplx { r: 0.0, i: 0.0 };
             let mut t11: cmplx = cmplx { r: 0.0, i: 0.0 };
             {
-                t2.r =
-                    &cc[ido * (1 + cdim * k)].r + cc[ido * (10 + cdim * k)].r;
-                t2.i =
-                    &cc[ido * (1 + cdim * k)].i + cc[ido * (10 + cdim * k)].i;
-                t11.r =
-                    &cc[ido * (1 + cdim * k)].r - cc[ido * (10 + cdim * k)].r;
-                t11.i =
-                    &cc[ido * (1 + cdim * k)].i - cc[ido * (10 + cdim * k)].i;
+                t2.r = &cc[ido * (1 + cdim * k)].r + cc[ido * (10 + cdim * k)].r;
+                t2.i = &cc[ido * (1 + cdim * k)].i + cc[ido * (10 + cdim * k)].i;
+                t11.r = &cc[ido * (1 + cdim * k)].r - cc[ido * (10 + cdim * k)].r;
+                t11.i = &cc[ido * (1 + cdim * k)].i - cc[ido * (10 + cdim * k)].i;
             }
             {
                 t3.r = &cc[ido * (2 + cdim * k)].r + cc[ido * (9 + cdim * k)].r;
                 t3.i = &cc[ido * (2 + cdim * k)].i + cc[ido * (9 + cdim * k)].i;
-                t10.r =
-                    &cc[ido * (2 + cdim * k)].r - cc[ido * (9 + cdim * k)].r;
-                t10.i =
-                    &cc[ido * (2 + cdim * k)].i - cc[ido * (9 + cdim * k)].i;
+                t10.r = &cc[ido * (2 + cdim * k)].r - cc[ido * (9 + cdim * k)].r;
+                t10.i = &cc[ido * (2 + cdim * k)].i - cc[ido * (9 + cdim * k)].i;
             }
             {
                 t4.r = &cc[ido * (3 + cdim * k)].r + cc[ido * (8 + cdim * k)].r;
@@ -1919,54 +1774,34 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
                 let mut t10: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t11: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t2.r = cc[ido * (1 + cdim * k)].r
-                        + cc[ido * (10 + cdim * k)].r;
-                    t2.i = cc[ido * (1 + cdim * k)].i
-                        + cc[ido * (10 + cdim * k)].i;
-                    t11.r = cc[ido * (1 + cdim * k)].r
-                        - cc[ido * (10 + cdim * k)].r;
-                    t11.i = cc[ido * (1 + cdim * k)].i
-                        - cc[ido * (10 + cdim * k)].i;
+                    t2.r = cc[ido * (1 + cdim * k)].r + cc[ido * (10 + cdim * k)].r;
+                    t2.i = cc[ido * (1 + cdim * k)].i + cc[ido * (10 + cdim * k)].i;
+                    t11.r = cc[ido * (1 + cdim * k)].r - cc[ido * (10 + cdim * k)].r;
+                    t11.i = cc[ido * (1 + cdim * k)].i - cc[ido * (10 + cdim * k)].i;
                 }
                 {
-                    t3.r =
-                        cc[ido * (2 + cdim * k)].r + cc[ido * (9 + cdim * k)].r;
-                    t3.i =
-                        cc[ido * (2 + cdim * k)].i + cc[ido * (9 + cdim * k)].i;
-                    t10.r =
-                        cc[ido * (2 + cdim * k)].r - cc[ido * (9 + cdim * k)].r;
-                    t10.i =
-                        cc[ido * (2 + cdim * k)].i - cc[ido * (9 + cdim * k)].i;
+                    t3.r = cc[ido * (2 + cdim * k)].r + cc[ido * (9 + cdim * k)].r;
+                    t3.i = cc[ido * (2 + cdim * k)].i + cc[ido * (9 + cdim * k)].i;
+                    t10.r = cc[ido * (2 + cdim * k)].r - cc[ido * (9 + cdim * k)].r;
+                    t10.i = cc[ido * (2 + cdim * k)].i - cc[ido * (9 + cdim * k)].i;
                 }
                 {
-                    t4.r =
-                        cc[ido * (3 + cdim * k)].r + cc[ido * (8 + cdim * k)].r;
-                    t4.i =
-                        cc[ido * (3 + cdim * k)].i + cc[ido * (8 + cdim * k)].i;
-                    t9.r =
-                        cc[ido * (3 + cdim * k)].r - cc[ido * (8 + cdim * k)].r;
-                    t9.i =
-                        cc[ido * (3 + cdim * k)].i - cc[ido * (8 + cdim * k)].i;
+                    t4.r = cc[ido * (3 + cdim * k)].r + cc[ido * (8 + cdim * k)].r;
+                    t4.i = cc[ido * (3 + cdim * k)].i + cc[ido * (8 + cdim * k)].i;
+                    t9.r = cc[ido * (3 + cdim * k)].r - cc[ido * (8 + cdim * k)].r;
+                    t9.i = cc[ido * (3 + cdim * k)].i - cc[ido * (8 + cdim * k)].i;
                 }
                 {
-                    t5.r =
-                        cc[ido * (4 + cdim * k)].r + cc[ido * (7 + cdim * k)].r;
-                    t5.i =
-                        cc[ido * (4 + cdim * k)].i + cc[ido * (7 + cdim * k)].i;
-                    t8.r =
-                        cc[ido * (4 + cdim * k)].r - cc[ido * (7 + cdim * k)].r;
-                    t8.i =
-                        cc[ido * (4 + cdim * k)].i - cc[ido * (7 + cdim * k)].i;
+                    t5.r = cc[ido * (4 + cdim * k)].r + cc[ido * (7 + cdim * k)].r;
+                    t5.i = cc[ido * (4 + cdim * k)].i + cc[ido * (7 + cdim * k)].i;
+                    t8.r = cc[ido * (4 + cdim * k)].r - cc[ido * (7 + cdim * k)].r;
+                    t8.i = cc[ido * (4 + cdim * k)].i - cc[ido * (7 + cdim * k)].i;
                 }
                 {
-                    t6.r =
-                        cc[ido * (5 + cdim * k)].r + cc[ido * (6 + cdim * k)].r;
-                    t6.i =
-                        cc[ido * (5 + cdim * k)].i + cc[ido * (6 + cdim * k)].i;
-                    t7.r =
-                        cc[ido * (5 + cdim * k)].r - cc[ido * (6 + cdim * k)].r;
-                    t7.i =
-                        cc[ido * (5 + cdim * k)].i - cc[ido * (6 + cdim * k)].i;
+                    t6.r = cc[ido * (5 + cdim * k)].r + cc[ido * (6 + cdim * k)].r;
+                    t6.i = cc[ido * (5 + cdim * k)].i + cc[ido * (6 + cdim * k)].i;
+                    t7.r = cc[ido * (5 + cdim * k)].r - cc[ido * (6 + cdim * k)].r;
+                    t7.i = cc[ido * (5 + cdim * k)].i - cc[ido * (6 + cdim * k)].i;
                 }
                 ch[ido * k].r = t1.r + t2.r + t3.r + t4.r + t5.r + t6.r;
                 ch[ido * k].i = t1.i + t2.i + t3.i + t4.i + t5.i + t6.i;
@@ -2064,54 +1899,34 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
                 let mut t10: cmplx = cmplx { r: 0.0, i: 0.0 };
                 let mut t11: cmplx = cmplx { r: 0.0, i: 0.0 };
                 {
-                    t2.r = cc[i + ido * (1 + cdim * k)].r
-                        + cc[i + ido * (10 + cdim * k)].r;
-                    t2.i = cc[i + ido * (1 + cdim * k)].i
-                        + cc[i + ido * (10 + cdim * k)].i;
-                    t11.r = cc[i + ido * (1 + cdim * k)].r
-                        - cc[i + ido * (10 + cdim * k)].r;
-                    t11.i = cc[i + ido * (1 + cdim * k)].i
-                        - cc[i + ido * (10 + cdim * k)].i;
+                    t2.r = cc[i + ido * (1 + cdim * k)].r + cc[i + ido * (10 + cdim * k)].r;
+                    t2.i = cc[i + ido * (1 + cdim * k)].i + cc[i + ido * (10 + cdim * k)].i;
+                    t11.r = cc[i + ido * (1 + cdim * k)].r - cc[i + ido * (10 + cdim * k)].r;
+                    t11.i = cc[i + ido * (1 + cdim * k)].i - cc[i + ido * (10 + cdim * k)].i;
                 }
                 {
-                    t3.r =
-                        cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (9 + cdim * k)].r;
-                    t3.i =
-                        cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (9 + cdim * k)].i;
-                    t10.r =
-                        cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (9 + cdim * k)].r;
-                    t10.i =
-                        cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (9 + cdim * k)].i;
+                    t3.r = cc[i + ido * (2 + cdim * k)].r + cc[i + ido * (9 + cdim * k)].r;
+                    t3.i = cc[i + ido * (2 + cdim * k)].i + cc[i + ido * (9 + cdim * k)].i;
+                    t10.r = cc[i + ido * (2 + cdim * k)].r - cc[i + ido * (9 + cdim * k)].r;
+                    t10.i = cc[i + ido * (2 + cdim * k)].i - cc[i + ido * (9 + cdim * k)].i;
                 }
                 {
-                    t4.r =
-                        cc[i + ido * (3 + cdim * k)].r + cc[i + ido * (8 + cdim * k)].r;
-                    t4.i =
-                        cc[i + ido * (3 + cdim * k)].i + cc[i + ido * (8 + cdim * k)].i;
-                    t9.r =
-                        cc[i + ido * (3 + cdim * k)].r - cc[i + ido * (8 + cdim * k)].r;
-                    t9.i =
-                        cc[i + ido * (3 + cdim * k)].i - cc[i + ido * (8 + cdim * k)].i;
+                    t4.r = cc[i + ido * (3 + cdim * k)].r + cc[i + ido * (8 + cdim * k)].r;
+                    t4.i = cc[i + ido * (3 + cdim * k)].i + cc[i + ido * (8 + cdim * k)].i;
+                    t9.r = cc[i + ido * (3 + cdim * k)].r - cc[i + ido * (8 + cdim * k)].r;
+                    t9.i = cc[i + ido * (3 + cdim * k)].i - cc[i + ido * (8 + cdim * k)].i;
                 }
                 {
-                    t5.r =
-                        cc[i + ido * (4 + cdim * k)].r + cc[i + ido * (7 + cdim * k)].r;
-                    t5.i =
-                        cc[i + ido * (4 + cdim * k)].i + cc[i + ido * (7 + cdim * k)].i;
-                    t8.r =
-                        cc[i + ido * (4 + cdim * k)].r - cc[i + ido * (7 + cdim * k)].r;
-                    t8.i =
-                        cc[i + ido * (4 + cdim * k)].i - cc[i + ido * (7 + cdim * k)].i;
+                    t5.r = cc[i + ido * (4 + cdim * k)].r + cc[i + ido * (7 + cdim * k)].r;
+                    t5.i = cc[i + ido * (4 + cdim * k)].i + cc[i + ido * (7 + cdim * k)].i;
+                    t8.r = cc[i + ido * (4 + cdim * k)].r - cc[i + ido * (7 + cdim * k)].r;
+                    t8.i = cc[i + ido * (4 + cdim * k)].i - cc[i + ido * (7 + cdim * k)].i;
                 }
                 {
-                    t6.r =
-                        cc[i + ido * (5 + cdim * k)].r + cc[i + ido * (6 + cdim * k)].r;
-                    t6.i =
-                        cc[i + ido * (5 + cdim * k)].i + cc[i + ido * (6 + cdim * k)].i;
-                    t7.r =
-                        cc[i + ido * (5 + cdim * k)].r - cc[i + ido * (6 + cdim * k)].r;
-                    t7.i =
-                        cc[i + ido * (5 + cdim * k)].i - cc[i + ido * (6 + cdim * k)].i;
+                    t6.r = cc[i + ido * (5 + cdim * k)].r + cc[i + ido * (6 + cdim * k)].r;
+                    t6.i = cc[i + ido * (5 + cdim * k)].i + cc[i + ido * (6 + cdim * k)].i;
+                    t7.r = cc[i + ido * (5 + cdim * k)].r - cc[i + ido * (6 + cdim * k)].r;
+                    t7.i = cc[i + ido * (5 + cdim * k)].i - cc[i + ido * (6 + cdim * k)].i;
                 }
                 ch[i + ido * k].r = t1.r + t2.r + t3.r + t4.r + t5.r + t6.r;
                 ch[i + ido * k].i = t1.i + t2.i + t3.i + t4.i + t5.i + t6.i;
@@ -2148,19 +1963,15 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
                         }
                     }
                     {
-                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1)].r = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (1 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1)].i = wa[i - 1 + (1 - 1) * (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (1 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 10)].r = wa[i - 1 + (10 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 10)].r = wa[i - 1 + (10 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (10 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 10)].i = wa[i - 1 + (10 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 10)].i = wa[i - 1 + (10 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (10 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -2196,19 +2007,15 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
                         }
                     }
                     {
-                        ch[i + ido * (k + l1 * 2)].r = wa[i - 1 + (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1 * 2)].r = wa[i - 1 + (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1 * 2)].i = wa[i - 1 + (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 9)].r = wa[i - 1 + (9 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 9)].r = wa[i - 1 + (9 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (9 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 9)].i = wa[i - 1 + (9 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 9)].i = wa[i - 1 + (9 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (9 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -2243,19 +2050,15 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
                         }
                     }
                     {
-                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1 * 3)].r = wa[i - 1 + (3 - 1) * (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (3 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1 * 3)].i = wa[i - 1 + (3 - 1) * (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (3 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 8)].r = wa[i - 1 + (8 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 8)].r = wa[i - 1 + (8 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (8 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 8)].i = wa[i - 1 + (8 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 8)].i = wa[i - 1 + (8 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (8 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -2289,19 +2092,15 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
                         }
                     }
                     {
-                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1 * 4)].r = wa[i - 1 + (4 - 1) * (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (4 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1 * 4)].i = wa[i - 1 + (4 - 1) * (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (4 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 7)].r = wa[i - 1 + (7 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 7)].r = wa[i - 1 + (7 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (7 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 7)].i = wa[i - 1 + (7 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 7)].i = wa[i - 1 + (7 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (7 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -2335,19 +2134,15 @@ fn pass11(ido: usize, l1: usize, cc: &[cmplx], ch: &mut [cmplx], wa: &[cmplx], s
                         }
                     }
                     {
-                        ch[i + ido * (k + l1 * 5)].r = wa[i - 1 + (5 - 1) * (ido - 1)].r
-                            * da.r
+                        ch[i + ido * (k + l1 * 5)].r = wa[i - 1 + (5 - 1) * (ido - 1)].r * da.r
                             - (sign as f64) * wa[i - 1 + (5 - 1) * (ido - 1)].i * da.i;
-                        ch[i + ido * (k + l1 * 5)].i = wa[i - 1 + (5 - 1) * (ido - 1)].r
-                            * da.i
+                        ch[i + ido * (k + l1 * 5)].i = wa[i - 1 + (5 - 1) * (ido - 1)].r * da.i
                             + (sign as f64) * wa[i - 1 + (5 - 1) * (ido - 1)].i * da.r;
                     }
                     {
-                        ch[i + ido * (k + l1 * 6)].r = wa[i - 1 + (6 - 1) * (ido - 1)].r
-                            * db.r
+                        ch[i + ido * (k + l1 * 6)].r = wa[i - 1 + (6 - 1) * (ido - 1)].r * db.r
                             - (sign as f64) * wa[i - 1 + (6 - 1) * (ido - 1)].i * db.i;
-                        ch[i + ido * (k + l1 * 6)].i = wa[i - 1 + (6 - 1) * (ido - 1)].r
-                            * db.i
+                        ch[i + ido * (k + l1 * 6)].i = wa[i - 1 + (6 - 1) * (ido - 1)].r * db.i
                             + (sign as f64) * wa[i - 1 + (6 - 1) * (ido - 1)].i * db.r;
                     }
                 }
@@ -2419,16 +2214,14 @@ fn passg(
     let mut lc = ip - 1;
     while l < ipph {
         for ik in 0..idl1 {
-            cc[ik + idl1 * l].r = ch[ik].r
-                + wal[l].r * ch[ik + idl1].r
-                + wal[2 * l].r * ch[ik + idl1 * 2].r;
-            cc[ik + idl1 * l].i = ch[ik].i
-                + wal[l].r * ch[ik + idl1].i
-                + wal[2 * l].r * ch[ik + idl1 * 2].i;
-            cc[ik + idl1 * lc].r = -wal[l].i * ch[ik + idl1 * (ip - 1)].i
-                - wal[2 * l].i * ch[ik + idl1 * (ip - 2)].i;
-            cc[ik + idl1 * lc].i = wal[l].i * ch[ik + idl1 * (ip - 1)].r
-                + wal[2 * l].i * ch[ik + idl1 * (ip - 2)].r;
+            cc[ik + idl1 * l].r =
+                ch[ik].r + wal[l].r * ch[ik + idl1].r + wal[2 * l].r * ch[ik + idl1 * 2].r;
+            cc[ik + idl1 * l].i =
+                ch[ik].i + wal[l].r * ch[ik + idl1].i + wal[2 * l].r * ch[ik + idl1 * 2].i;
+            cc[ik + idl1 * lc].r =
+                -wal[l].i * ch[ik + idl1 * (ip - 1)].i - wal[2 * l].i * ch[ik + idl1 * (ip - 2)].i;
+            cc[ik + idl1 * lc].i =
+                wal[l].i * ch[ik + idl1 * (ip - 1)].r + wal[2 * l].i * ch[ik + idl1 * (ip - 2)].r;
         }
 
         let mut iwal: usize = 2 * l;
@@ -2511,14 +2304,10 @@ fn passg(
                     let mut x1: cmplx = cmplx { r: 0.0, i: 0.0 };
                     let mut x2: cmplx = cmplx { r: 0.0, i: 0.0 };
                     {
-                        x1.r = cc[i + ido * (k + l1 * j)].r
-                            + cc[i + ido * (k + l1 * jc)].r;
-                        x1.i = cc[i + ido * (k + l1 * j)].i
-                            + cc[i + ido * (k + l1 * jc)].i;
-                        x2.r = cc[i + ido * (k + l1 * j)].r
-                            - cc[i + ido * (k + l1 * jc)].r;
-                        x2.i = cc[i + ido * (k + l1 * j)].i
-                            - cc[i + ido * (k + l1 * jc)].i;
+                        x1.r = cc[i + ido * (k + l1 * j)].r + cc[i + ido * (k + l1 * jc)].r;
+                        x1.i = cc[i + ido * (k + l1 * j)].i + cc[i + ido * (k + l1 * jc)].i;
+                        x2.r = cc[i + ido * (k + l1 * j)].r - cc[i + ido * (k + l1 * jc)].r;
+                        x2.i = cc[i + ido * (k + l1 * j)].i - cc[i + ido * (k + l1 * jc)].i;
                     }
                     let mut idij = (j - 1) * (ido - 1) + i - 1;
                     {
@@ -2564,15 +2353,15 @@ fn pass_all(plan: &mut cfftp_plan_i, c: &mut [cmplx], fct: f64, sign: i32) -> i3
         let wa = &plan.mem[plan.fct[k1].tw_index..];
         if ip == 4 {
             if sign > 0 {
-                pass4b(ido,l1,p1,p2, wa);
+                pass4b(ido, l1, p1, p2, wa);
             } else {
-                pass4f(ido,l1,p1,p2, wa);
+                pass4f(ido, l1, p1, p2, wa);
             };
         } else if ip == 2 {
             if sign > 0 {
-                pass2b(ido,l1,p1,p2, wa);
+                pass2b(ido, l1, p1, p2, wa);
             } else {
-                pass2f(ido,l1,p1,p2, wa);
+                pass2f(ido, l1, p1, p2, wa);
             };
         } else if ip == 3 {
             if sign > 0 {
@@ -2592,7 +2381,7 @@ fn pass_all(plan: &mut cfftp_plan_i, c: &mut [cmplx], fct: f64, sign: i32) -> i3
             pass11(ido, l1, p1, p2, wa, sign as i64);
         } else {
             let csarr = &plan.mem[plan.fct[k1].tws_index..];
-            let res = passg(ido, ip, l1, p1, p2, wa, csarr,sign as i64,);
+            let res = passg(ido, ip, l1, p1, p2, wa, csarr, sign as i64);
             if res != 0 {
                 return -1;
             }
@@ -2621,12 +2410,12 @@ fn pass_all(plan: &mut cfftp_plan_i, c: &mut [cmplx], fct: f64, sign: i32) -> i3
 }
 #[inline(never)]
 fn cfftp_forward(plan: &mut cfftp_plan_i, c: &mut [f64], fct: f64) -> i32 {
-    let c = unsafe{std::mem::transmute::<&mut [f64], &mut [cmplx]>(c)};
+    let c = unsafe { std::mem::transmute::<&mut [f64], &mut [cmplx]>(c) };
     return pass_all(plan, c, fct, -1);
 }
 #[inline(never)]
 fn cfftp_backward(plan: &mut cfftp_plan_i, c: &mut [f64], fct: f64) -> i32 {
-    let c = unsafe{std::mem::transmute::<&mut [f64], &mut [cmplx]>(c)};
+    let c = unsafe { std::mem::transmute::<&mut [f64], &mut [cmplx]>(c) };
     return pass_all(plan, c, fct, 1);
 }
 #[inline(never)]
@@ -2649,12 +2438,11 @@ fn cfftp_factorize(plan: &mut cfftp_plan_i) -> i32 {
         }
         let fresh2 = nfct;
         nfct += 1;
-        
+
         plan.fct[fresh2].fct = 2;
         let tmp = plan.fct[0].fct;
         plan.fct[0].fct = plan.fct[nfct - 1].fct;
         plan.fct[nfct - 1].fct = tmp;
-        
     }
     let mut maxl: usize = ((length as f64).sqrt() as usize) + 1;
     let mut divisor: usize = 3;
@@ -2733,7 +2521,6 @@ fn cfftp_comp_twiddle(plan: &mut cfftp_plan_i) -> i32 {
                 tws[j].i = twid[2 * j * l1 * ido + 1];
             }
             memofs += ip;
-            
         }
         l1 *= ip;
         k += 1;
@@ -2748,7 +2535,7 @@ fn make_cfftp_plan(length: usize) -> cfftp_plan {
     let tmp_fct = [cfftp_fctdata {
         fct: 0,
         tw_index: 0,
-        tws_index: 0
+        tws_index: 0,
     }; NFCT];
     let mut tmp_cfftp_plan_i = cfftp_plan_i {
         length: 0,
@@ -2756,7 +2543,7 @@ fn make_cfftp_plan(length: usize) -> cfftp_plan {
         mem: Vec::new(),
         fct: tmp_fct,
     };
-    
+
     tmp_cfftp_plan_i.length = length;
     tmp_cfftp_plan_i.nfct = 0;
     let mut i: usize = 0;
@@ -2764,16 +2551,16 @@ fn make_cfftp_plan(length: usize) -> cfftp_plan {
         tmp_cfftp_plan_i.fct[i] = cfftp_fctdata {
             fct: 0,
             tw_index: 0,
-            tws_index: 0
+            tws_index: 0,
         };
         i += 1;
     }
-    
+
     if length == 1 {
         let plan: cfftp_plan = Box::into_raw(Box::new(tmp_cfftp_plan_i));
         return plan;
     }
-    
+
     if cfftp_factorize(&mut tmp_cfftp_plan_i) != 0 {
         return null_mut();
     }
@@ -2783,7 +2570,7 @@ fn make_cfftp_plan(length: usize) -> cfftp_plan {
     if cfftp_comp_twiddle(&mut tmp_cfftp_plan_i) != 0 {
         return null_mut();
     }
-    
+
     let plan: cfftp_plan = Box::into_raw(Box::new(tmp_cfftp_plan_i));
     return plan;
 }
@@ -2798,10 +2585,8 @@ fn radf2(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
     let cdim: usize = 2;
     let mut k: usize = 0;
     while k < l1 {
-        ch[ido * cdim * k] =
-            cc[ido * k] + cc[ido * (k + l1)];
-        ch[(ido - 1) + ido * (1 + cdim * k)] =
-            cc[ido * k] - cc[ido * (k + l1)];
+        ch[ido * cdim * k] = cc[ido * k] + cc[ido * (k + l1)];
+        ch[(ido - 1) + ido * (1 + cdim * k)] = cc[ido * k] - cc[ido * (k + l1)];
         k += 1;
     }
     if (ido & 1) == 0 {
@@ -2822,13 +2607,10 @@ fn radf2(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
             let ic: usize = ido - i;
             let tr2: f64;
             let ti2: f64;
-            tr2 = wa[i - 2] * cc[(i - 1) + ido * (k + l1)]
-                + wa[i - 1] * cc[i + ido * (k + l1)];
-            ti2 = wa[i - 2] * cc[i + ido * (k + l1)]
-                - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
+            tr2 = wa[i - 2] * cc[(i - 1) + ido * (k + l1)] + wa[i - 1] * cc[i + ido * (k + l1)];
+            ti2 = wa[i - 2] * cc[i + ido * (k + l1)] - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
             ch[(i - 1) + ido * cdim * k] = cc[(i - 1) + ido * k] + tr2;
-            ch[(ic - 1) + ido * (1 + cdim * k)] =
-                cc[(i - 1) + ido * k] - tr2;
+            ch[(ic - 1) + ido * (1 + cdim * k)] = cc[(i - 1) + ido * k] - tr2;
             ch[i + ido * cdim * k] = ti2 + cc[i + ido * k];
             ch[ic + ido * (1 + cdim * k)] = ti2 - cc[i + ido * k];
             i += 2;
@@ -2846,8 +2628,7 @@ fn radf3(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
     while k < l1 {
         let cr2: f64 = cc[ido * (k + l1)] + cc[ido * (k + l1 * 2)];
         ch[ido * cdim * k] = cc[ido * k] + cr2;
-        ch[ido * (2 + cdim * k)] =
-            taui * (cc[ido * (k + l1 * 2)] - cc[ido * (k + l1)]);
+        ch[ido * (2 + cdim * k)] = taui * (cc[ido * (k + l1 * 2)] - cc[ido * (k + l1)]);
         ch[(ido - 1) + ido * (1 + cdim * k)] = cc[ido * k] + taur * cr2;
         k += 1;
     }
@@ -2864,10 +2645,8 @@ fn radf3(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
             let dr2: f64;
             let dr3: f64;
             {
-                dr2 = wa[i - 2] * cc[(i - 1) + ido * (k + l1)]
-                    + wa[i - 1] * cc[i + ido * (k + l1)];
-                di2 = wa[i - 2] * cc[i + ido * (k + l1)]
-                    - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
+                dr2 = wa[i - 2] * cc[(i - 1) + ido * (k + l1)] + wa[i - 1] * cc[i + ido * (k + l1)];
+                di2 = wa[i - 2] * cc[i + ido * (k + l1)] - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
             }
             {
                 dr3 = wa[(i - 2) + (ido - 1)] * cc[(i - 1) + ido * (k + l1 * 2)]
@@ -2906,13 +2685,11 @@ fn radf4(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
         let tr2: f64;
         {
             tr1 = cc[ido * (k + l1 * 3)] + cc[ido * (k + l1)];
-            ch[ido * (2 + cdim * k)] =
-                cc[ido * (k + l1 * 3)] - cc[ido * (k + l1)];
+            ch[ido * (2 + cdim * k)] = cc[ido * (k + l1 * 3)] - cc[ido * (k + l1)];
         }
         {
             tr2 = cc[ido * k] + cc[ido * (k + l1 * 2)];
-            ch[(ido - 1) + ido * (1 + cdim * k)] =
-                cc[ido * k] - cc[ido * (k + l1 * 2)];
+            ch[(ido - 1) + ido * (1 + cdim * k)] = cc[ido * k] - cc[ido * (k + l1 * 2)];
         }
         {
             ch[ido * cdim * k] = tr2 + tr1;
@@ -2923,15 +2700,13 @@ fn radf4(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
     if (ido & 1) == 0 {
         let mut k: usize = 0;
         while k < l1 {
-            let ti1: f64 = -hsqt2
-                * (cc[(ido - 1) + ido * (k + l1)] + cc[(ido - 1) + ido * (k + l1 * 3)]);
-            let tr1: f64 = hsqt2
-                * (cc[(ido - 1) + ido * (k + l1)] - cc[(ido - 1) + ido * (k + l1 * 3)]);
+            let ti1: f64 =
+                -hsqt2 * (cc[(ido - 1) + ido * (k + l1)] + cc[(ido - 1) + ido * (k + l1 * 3)]);
+            let tr1: f64 =
+                hsqt2 * (cc[(ido - 1) + ido * (k + l1)] - cc[(ido - 1) + ido * (k + l1 * 3)]);
             {
-                ch[(ido - 1) + ido * cdim * k] =
-                    cc[(ido - 1) + ido * k] + tr1;
-                ch[(ido - 1) + ido * (2 + cdim * k)] =
-                    cc[(ido - 1) + ido * k] - tr1;
+                ch[(ido - 1) + ido * cdim * k] = cc[(ido - 1) + ido * k] + tr1;
+                ch[(ido - 1) + ido * (2 + cdim * k)] = cc[(ido - 1) + ido * k] - tr1;
             }
             {
                 ch[ido * (3 + cdim * k)] = ti1 + cc[(ido - 1) + ido * (k + l1 * 2)];
@@ -2946,10 +2721,10 @@ fn radf4(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
             let mut i: usize = 2;
             while i < ido {
                 let ic: usize = ido - i;
-                let cr2: f64 = wa[i - 2] * cc[(i - 1) + ido * (k + l1)]
-                    + wa[i - 1] * cc[(i) + ido * (k + l1)];
-                let ci2: f64 = wa[i - 2] * cc[(i) + ido * (k + l1)]
-                    - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
+                let cr2: f64 =
+                    wa[i - 2] * cc[(i - 1) + ido * (k + l1)] + wa[i - 1] * cc[(i) + ido * (k + l1)];
+                let ci2: f64 =
+                    wa[i - 2] * cc[(i) + ido * (k + l1)] - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
                 let cr3: f64 = wa[(i - 2) + (ido - 1)] * cc[(i - 1) + ido * (k + l1 * 2)]
                     + wa[(i - 1) + (ido - 1)] * cc[(i) + ido * (k + l1 * 2)];
                 let ci3: f64 = wa[(i - 2) + (ido - 1)] * cc[(i) + ido * (k + l1 * 2)]
@@ -2995,11 +2770,9 @@ fn radf5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
         let cr3: f64 = cc[ido * (k + l1 * 3)] + cc[ido * (k + l1 * 2)];
         let ci4: f64 = cc[ido * (k + l1 * 3)] - cc[ido * (k + l1 * 2)];
         ch[ido * cdim * k] = cc[ido * k] + cr2 + cr3;
-        ch[(ido - 1) + ido * (1 + cdim * k)] =
-            cc[ido * k] + tr11 * cr2 + tr12 * cr3;
+        ch[(ido - 1) + ido * (1 + cdim * k)] = cc[ido * k] + tr11 * cr2 + tr12 * cr3;
         ch[ido * (2 + cdim * k)] = ti11 * ci5 + ti12 * ci4;
-        ch[(ido - 1) + ido * (3 + cdim * k)] =
-            cc[ido * k] + tr12 * cr2 + tr11 * cr3;
+        ch[(ido - 1) + ido * (3 + cdim * k)] = cc[ido * k] + tr12 * cr2 + tr11 * cr3;
         ch[ido * (4 + cdim * k)] = ti12 * ci5 - ti11 * ci4;
         k += 1;
     }
@@ -3012,10 +2785,10 @@ fn radf5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
         while i < ido {
             let ic: usize = ido - i;
 
-            let dr2: f64 = wa[i - 2] * cc[(i - 1) + ido * (k + l1)]
-                + wa[i - 1] * cc[i + ido * (k + l1)];
-            let di2: f64 = wa[i - 2] * cc[i + ido * (k + l1)]
-                - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
+            let dr2: f64 =
+                wa[i - 2] * cc[(i - 1) + ido * (k + l1)] + wa[i - 1] * cc[i + ido * (k + l1)];
+            let di2: f64 =
+                wa[i - 2] * cc[i + ido * (k + l1)] - wa[i - 1] * cc[(i - 1) + ido * (k + l1)];
 
             let dr3: f64 = wa[(i - 2) + (ido - 1)] * cc[(i - 1) + ido * (k + l1 * 2)]
                 + wa[(i - 1) + (ido - 1)] * cc[i + ido * (k + l1 * 2)];
@@ -3044,8 +2817,7 @@ fn radf5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
             let ci3: f64 = di3 + di4;
             let cr4: f64 = di3 - di4;
 
-            ch[(i - 1) + ido * cdim * k] =
-                cc[(i - 1) + ido * k] + cr2 + cr3;
+            ch[(i - 1) + ido * cdim * k] = cc[(i - 1) + ido * k] + cr2 + cr3;
             ch[i + ido * cdim * k] = cc[i + ido * k] + ci2 + ci3;
             let tr2: f64 = cc[(i - 1) + ido * k] + tr11 * cr2 + tr12 * cr3;
             let ti2: f64 = cc[i + ido * k] + tr11 * ci2 + tr12 * ci3;
@@ -3076,7 +2848,15 @@ fn radf5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
     }
 }
 
-fn radfg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &[f64], csarr: &[f64]) {
+fn radfg(
+    ido: usize,
+    ip: usize,
+    l1: usize,
+    cc: &mut [f64],
+    ch: &mut [f64],
+    wa: &[f64],
+    csarr: &[f64],
+) {
     let cdim: usize = ip;
     let ipph: usize = (ip + 1) / 2;
     let idl1: usize = ido * l1;
@@ -3136,9 +2916,8 @@ fn radfg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &
     while l < ipph {
         let mut ik: usize = 0;
         while ik < idl1 {
-            ch[ik + idl1 * l] = cc[ik]
-                + csarr[2 * l] * cc[ik + idl1]
-                + csarr[4 * l] * cc[ik + idl1 * 2];
+            ch[ik + idl1 * l] =
+                cc[ik] + csarr[2 * l] * cc[ik + idl1] + csarr[4 * l] * cc[ik + idl1 * 2];
             ch[ik + idl1 * lc] = csarr[2 * l + 1] * cc[ik + idl1 * (ip - 1)]
                 + csarr[4 * l + 1] * cc[ik + idl1 * (ip - 2)];
             ik += 1;
@@ -3201,10 +2980,8 @@ fn radfg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &
             let ai2: f64 = csarr[2 * iang + 1];
             let mut ik: usize = 0;
             while ik < idl1 {
-                ch[ik + idl1 * l] +=
-                    ar1 * cc[ik + idl1 * j] + ar2 * cc[ik + idl1 * (j + 1)];
-                ch[ik + idl1 * lc] +=
-                    ai1 * cc[ik + idl1 * jc] + ai2 * cc[ik + idl1 * (jc - 1)];
+                ch[ik + idl1 * l] += ar1 * cc[ik + idl1 * j] + ar2 * cc[ik + idl1 * (j + 1)];
+                ch[ik + idl1 * lc] += ai1 * cc[ik + idl1 * jc] + ai2 * cc[ik + idl1 * (jc - 1)];
                 ik += 1;
             }
             j += 2;
@@ -3305,10 +3082,8 @@ fn radb2(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
 
     let mut k: usize = 0;
     while k < l1 {
-        ch[ido * k] =
-            cc[ido * cdim * k] + cc[(ido - 1) + ido * (1 + cdim * k)];
-        ch[ido * (k + l1)] =
-            cc[ido * cdim * k] - cc[(ido - 1) + ido * (1 + cdim * k)];
+        ch[ido * k] = cc[ido * cdim * k] + cc[(ido - 1) + ido * (1 + cdim * k)];
+        ch[ido * (k + l1)] = cc[ido * cdim * k] - cc[(ido - 1) + ido * (1 + cdim * k)];
         k += 1;
     }
     if (ido & 1) == 0 {
@@ -3327,19 +3102,16 @@ fn radb2(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
         let mut i: usize = 2;
         while i < ido {
             let ic = ido - i;
-            
+
             ch[(i - 1) + ido * k] =
                 cc[(i - 1) + ido * cdim * k] + cc[(ic - 1) + ido * (1 + cdim * k)];
             let tr2: f64 = cc[(i - 1) + ido * cdim * k] - cc[(ic - 1) + ido * (1 + cdim * k)];
 
             let ti2: f64 = cc[i + ido * cdim * k] + cc[ic + ido * (1 + cdim * k)];
-            ch[i + ido * k] =
-                cc[i + ido * cdim * k] - cc[ic + ido * (1 + cdim * k)];
+            ch[i + ido * k] = cc[i + ido * cdim * k] - cc[ic + ido * (1 + cdim * k)];
 
-            ch[i + ido * (k + l1)] =
-                wa[i - 2] * ti2 + wa[i - 1] * tr2;
-            ch[(i - 1) + ido * (k + l1)] =
-                wa[i - 2] * tr2 - wa[i - 1] * ti2;
+            ch[i + ido * (k + l1)] = wa[i - 2] * ti2 + wa[i - 1] * tr2;
+            ch[(i - 1) + ido * (k + l1)] = wa[i - 2] * tr2 - wa[i - 1] * ti2;
 
             i += 2;
         }
@@ -3372,29 +3144,24 @@ fn radb3(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
         let mut i: usize = 2;
         while i < ido {
             let ic = ido - i;
-            let tr2: f64 =
-                cc[(i - 1) + ido * (2 + cdim * k)] + cc[(ic - 1) + ido * (1 + cdim * k)];
+            let tr2: f64 = cc[(i - 1) + ido * (2 + cdim * k)] + cc[(ic - 1) + ido * (1 + cdim * k)];
             let ti2: f64 = cc[i + ido * (2 + cdim * k)] - cc[ic + ido * (1 + cdim * k)];
             let cr2: f64 = cc[(i - 1) + ido * cdim * (k)] + taur * tr2;
             let ci2: f64 = cc[i + ido * cdim * k] + taur * ti2;
             ch[(i - 1) + ido * k] = cc[(i - 1) + ido * cdim * k] + tr2;
             ch[i + ido * k] = cc[i + ido * cdim * k] + ti2;
-            let cr3: f64 = taui
-                * (cc[(i - 1) + ido * (2 + cdim * k)]
-                    - cc[(ic - 1) + ido * (1 + cdim * k)]);
-            let ci3: f64 =
-                taui * (cc[i + ido * (2 + cdim * k)] + cc[ic + ido * (1 + cdim * k)]);
-            
+            let cr3: f64 =
+                taui * (cc[(i - 1) + ido * (2 + cdim * k)] - cc[(ic - 1) + ido * (1 + cdim * k)]);
+            let ci3: f64 = taui * (cc[i + ido * (2 + cdim * k)] + cc[ic + ido * (1 + cdim * k)]);
+
             let dr3: f64 = cr2 + ci3;
             let dr2: f64 = cr2 - ci3;
 
             let di2: f64 = ci2 + cr3;
             let di3: f64 = ci2 - cr3;
 
-            ch[i + ido * (k + l1)] =
-                wa[i - 2] * di2 + wa[i - 1] * dr2;
-            ch[(i - 1) + ido * ((k) + l1)] =
-                wa[i - 2] * dr2 - wa[i - 1] * di2;
+            ch[i + ido * (k + l1)] = wa[i - 2] * di2 + wa[i - 1] * dr2;
+            ch[(i - 1) + ido * ((k) + l1)] = wa[i - 2] * dr2 - wa[i - 1] * di2;
 
             ch[i + ido * (k + l1 * 2)] =
                 wa[(i - 2) + (ido - 1)] * di3 + wa[(i - 1) + (ido - 1)] * dr3;
@@ -3431,14 +3198,11 @@ fn radb4(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
     if (ido & 1) == 0 {
         let mut k: usize = 0;
         while k < l1 {
-         
             let ti1: f64 = cc[ido * (3 + cdim * k)] + cc[ido * (1 + cdim * k)];
             let ti2: f64 = cc[ido * (3 + cdim * k)] - cc[ido * (1 + cdim * k)];
 
-            let tr2: f64 =
-                cc[(ido - 1) + ido * cdim * k] + cc[(ido - 1) + ido * (2 + cdim * k)];
-            let tr1: f64 =
-                cc[(ido - 1) + ido * cdim * k] - cc[(ido - 1) + ido * (2 + cdim * k)];
+            let tr2: f64 = cc[(ido - 1) + ido * cdim * k] + cc[(ido - 1) + ido * (2 + cdim * k)];
+            let tr1: f64 = cc[(ido - 1) + ido * cdim * k] - cc[(ido - 1) + ido * (2 + cdim * k)];
 
             ch[(ido - 1) + ido * k] = tr2 + tr2;
             ch[(ido - 1) + ido * (k + l1)] = sqrt2 * (tr1 - ti1);
@@ -3480,10 +3244,8 @@ fn radb4(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
             let ci2: f64 = ti1 + ti4;
             let ci4: f64 = ti1 - ti4;
 
-            ch[i + ido * (k + l1)] =
-                wa[i - 2] * ci2 + wa[i - 1] * cr2;
-            ch[(i - 1) + ido * (k + l1)] =
-                wa[i - 2] * cr2 - wa[i - 1] * ci2;
+            ch[i + ido * (k + l1)] = wa[i - 2] * ci2 + wa[i - 1] * cr2;
+            ch[(i - 1) + ido * (k + l1)] = wa[i - 2] * cr2 - wa[i - 1] * ci2;
 
             ch[i + ido * (k + l1 * 2)] =
                 wa[(i - 2) + (ido - 1)] * ci3 + wa[(i - 1) + (ido - 1)] * cr3;
@@ -3512,14 +3274,12 @@ fn radb5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
     while k < l1 {
         let ti5 = cc[ido * (2 + cdim * k)] + cc[ido * (2 + cdim * k)];
         let ti4 = cc[ido * (4 + cdim * k)] + cc[ido * (4 + cdim * k)];
-        let tr2 =
-            cc[(ido - 1) + ido * (1 + cdim * k)] + cc[(ido - 1) + ido * (1 + cdim * k)];
-        let tr3 =
-            cc[(ido - 1) + ido * (3 + cdim * k)] + cc[(ido - 1) + ido * (3 + cdim * k)];
+        let tr2 = cc[(ido - 1) + ido * (1 + cdim * k)] + cc[(ido - 1) + ido * (1 + cdim * k)];
+        let tr3 = cc[(ido - 1) + ido * (3 + cdim * k)] + cc[(ido - 1) + ido * (3 + cdim * k)];
         ch[ido * k] = cc[ido * cdim * k] + tr2 + tr3;
         let cr2 = cc[ido * cdim * k] + tr11 * tr2 + tr12 * tr3;
         let cr3 = cc[ido * cdim * k] + tr12 * tr2 + tr11 * tr3;
-        
+
         let ci5: f64 = ti5 * ti11 + ti4 * ti12;
         let ci4: f64 = ti5 * ti12 - ti4 * ti11;
 
@@ -3551,14 +3311,13 @@ fn radb5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
             let ti4: f64 = cc[i + ido * (4 + cdim * k)] + cc[ic + ido * (3 + cdim * k)];
             let ti3: f64 = cc[i + ido * (4 + cdim * k)] - cc[ic + ido * (3 + cdim * k)];
 
-            ch[(i - 1) + ido * k] =
-                cc[(i - 1) + ido * cdim * k] + tr2 + tr3;
+            ch[(i - 1) + ido * k] = cc[(i - 1) + ido * cdim * k] + tr2 + tr3;
             ch[i + ido * k] = cc[i + ido * cdim * k] + ti2 + ti3;
             let cr2: f64 = cc[(i - 1) + ido * cdim * k] + tr11 * tr2 + tr12 * tr3;
             let ci2: f64 = cc[i + ido * cdim * k] + tr11 * ti2 + tr12 * ti3;
             let cr3: f64 = cc[(i - 1) + ido * cdim * k] + tr12 * tr2 + tr11 * tr3;
             let ci3: f64 = cc[i + ido * cdim * k] + tr12 * ti2 + tr11 * ti3;
-            
+
             let cr5: f64 = tr5 * ti11 + tr4 * ti12;
             let cr4: f64 = tr5 * ti12 - tr4 * ti11;
 
@@ -3577,10 +3336,8 @@ fn radb5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
             let di2: f64 = ci2 + cr5;
             let di5: f64 = ci2 - cr5;
 
-            ch[i + ido * (k + l1)] =
-                wa[i - 2] * di2 + wa[i - 1] * dr2;
-            ch[(i - 1) + ido * (k + l1)] =
-                wa[i - 2] * dr2 - wa[i - 1] * di2;
+            ch[i + ido * (k + l1)] = wa[i - 2] * di2 + wa[i - 1] * dr2;
+            ch[(i - 1) + ido * (k + l1)] = wa[i - 2] * dr2 - wa[i - 1] * di2;
 
             ch[i + ido * (k + l1 * 2)] =
                 wa[(i - 2) + (ido - 1)] * di3 + wa[(i - 1) + (ido - 1)] * dr3;
@@ -3603,7 +3360,15 @@ fn radb5(ido: usize, l1: usize, cc: &[f64], ch: &mut [f64], wa: &[f64]) {
     }
 }
 
-fn radbg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &[f64], csarr: &[f64]) {
+fn radbg(
+    ido: usize,
+    ip: usize,
+    l1: usize,
+    cc: &mut [f64],
+    ch: &mut [f64],
+    wa: &[f64],
+    csarr: &[f64],
+) {
     let cdim: usize = ip;
     let ipph: usize = (ip + 1) / 2;
     let idl1: usize = ido * l1;
@@ -3641,15 +3406,13 @@ fn radbg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &
                 let mut i: usize = 1;
                 let mut ic: usize = ido - i - 2;
                 while i <= ido - 2 {
-                    ch[i + ido * (k + l1 * j)] = cc[i + ido * ((j2 + 1) + cdim * k)]
-                        + cc[ic + ido * (j2 + cdim * k)];
-                    ch[i + ido * (k + l1 * jc)] = cc[i + ido * ((j2 + 1) + cdim * k)]
-                        - cc[ic + ido * (j2 + cdim * k)];
-                    ch[(i + 1) + ido * (k + l1 * j)] = cc
-                        [(i + 1) + ido * ((j2 + 1) + cdim * k)]
+                    ch[i + ido * (k + l1 * j)] =
+                        cc[i + ido * ((j2 + 1) + cdim * k)] + cc[ic + ido * (j2 + cdim * k)];
+                    ch[i + ido * (k + l1 * jc)] =
+                        cc[i + ido * ((j2 + 1) + cdim * k)] - cc[ic + ido * (j2 + cdim * k)];
+                    ch[(i + 1) + ido * (k + l1 * j)] = cc[(i + 1) + ido * ((j2 + 1) + cdim * k)]
                         - cc[(ic + 1) + ido * (j2 + cdim * k)];
-                    ch[(i + 1) + ido * (k + l1 * jc)] = cc
-                        [(i + 1) + ido * ((j2 + 1) + cdim * k)]
+                    ch[(i + 1) + ido * (k + l1 * jc)] = cc[(i + 1) + ido * ((j2 + 1) + cdim * k)]
                         + cc[(ic + 1) + ido * (j2 + cdim * k)];
                     i += 2;
                     ic = ic.wrapping_sub(2);
@@ -3665,9 +3428,8 @@ fn radbg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &
     while l < ipph {
         let mut ik: usize = 0;
         while ik < idl1 {
-            cc[ik + idl1 * l] = ch[ik]
-                + csarr[2 * l] * ch[ik + idl1]
-                + csarr[4 * l] * ch[ik + idl1 * 2];
+            cc[ik + idl1 * l] =
+                ch[ik] + csarr[2 * l] * ch[ik + idl1] + csarr[4 * l] * ch[ik + idl1 * 2];
             cc[ik + idl1 * lc] = csarr[2 * l + 1] * ch[ik + idl1 * (ip - 1)]
                 + csarr[4 * l + 1] * ch[ik + idl1 * (ip - 2)];
             ik += 1;
@@ -3730,10 +3492,8 @@ fn radbg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &
             let ai2 = csarr[2 * iang + 1];
             let mut ik: usize = 0;
             while ik < idl1 {
-                cc[ik + idl1 * l] +=
-                    ar1 * ch[ik + idl1 * j] + ar2 * ch[ik + idl1 * (j + 1)];
-                cc[ik + idl1 * lc] +=
-                    ai1 * ch[ik + idl1 * jc] + ai2 * ch[ik + idl1 * (jc - 1)];
+                cc[ik + idl1 * l] += ar1 * ch[ik + idl1 * j] + ar2 * ch[ik + idl1 * (j + 1)];
+                cc[ik + idl1 * lc] += ai1 * ch[ik + idl1 * jc] + ai2 * ch[ik + idl1 * (jc - 1)];
                 ik += 1;
             }
             j += 2;
@@ -3772,10 +3532,8 @@ fn radbg(ido: usize, ip: usize, l1: usize, cc: &mut [f64], ch: &mut [f64], wa: &
     while j < ipph {
         let mut k: usize = 0;
         while k < l1 {
-            ch[ido * (k + l1 * j)] =
-                cc[ido * (k + l1 * j)] - cc[ido * (k + l1 * jc)];
-            ch[ido * (k + l1 * jc)] =
-                cc[ido * (k + l1 * j)] + cc[ido * (k + l1 * jc)];
+            ch[ido * (k + l1 * j)] = cc[ido * (k + l1 * j)] - cc[ido * (k + l1 * jc)];
+            ch[ido * (k + l1 * jc)] = cc[ido * (k + l1 * j)] + cc[ido * (k + l1 * jc)];
             k += 1;
         }
         j += 1;
@@ -3949,7 +3707,6 @@ fn rfftp_factorize(plan: &mut rfftp_plan_i) -> i32 {
         let tmp: usize = plan.fct[0].fct;
         plan.fct[0].fct = plan.fct[nfct - 1].fct;
         plan.fct[nfct - 1].fct = tmp;
-        
     }
     let mut maxl: usize = ((length as f64).sqrt() as usize) + 1;
     let mut divisor: usize = 3;
@@ -4047,7 +3804,7 @@ fn make_rfftp_plan(length: usize) -> rfftp_plan {
     let tmp_fct = [rfftp_fctdata {
         fct: 0,
         tw_index: 0,
-        tws_index: 0
+        tws_index: 0,
     }; NFCT];
     let mut tmp_rfftp_plan_i = rfftp_plan_i {
         length,
@@ -4062,16 +3819,16 @@ fn make_rfftp_plan(length: usize) -> rfftp_plan {
         let init = rfftp_fctdata {
             fct: 0,
             tw_index: 0,
-            tws_index: 0
+            tws_index: 0,
         };
-        
+
         tmp_rfftp_plan_i.fct[i] = init;
     }
     if length == 1 {
         let plan: rfftp_plan = Box::into_raw(Box::new(tmp_rfftp_plan_i));
         return plan;
     }
-    
+
     if rfftp_factorize(&mut tmp_rfftp_plan_i) != 0 {
         return null_mut();
     }
@@ -4080,7 +3837,7 @@ fn make_rfftp_plan(length: usize) -> rfftp_plan {
     if rfftp_comp_twiddle(&mut tmp_rfftp_plan_i) != 0 {
         return null_mut();
     }
-    
+
     let plan: rfftp_plan = Box::into_raw(Box::new(tmp_rfftp_plan_i));
     return plan;
 }
@@ -4100,7 +3857,7 @@ fn make_fftblue_plan(length: usize) -> fftblue_plan {
     };
 
     let n2 = good_size(length * 2 - 1);
-    
+
     tmp_fftblue_plan_i.n = length;
     tmp_fftblue_plan_i.n2 = n2;
 
@@ -4125,32 +3882,32 @@ fn make_fftblue_plan(length: usize) -> fftblue_plan {
     let xn2: f64 = 1.0f64 / n2 as f64;
     let bkf_index = length * 2;
     bk[bkf_index] = bk[0] * xn2;
-    bk[bkf_index+1] = bk[1] * xn2;
+    bk[bkf_index + 1] = bk[1] * xn2;
     m = 2;
     while m < length * 2 {
-        bk[bkf_index+(2 * n2 - m)] = bk[m] * xn2;
-        bk[bkf_index+m] = bk[bkf_index+(2 * n2 - m)];
-        
-        bk[bkf_index+(2 * n2 - m + 1)] = bk[m + 1] * xn2;
-        bk[bkf_index+m + 1] = bk[bkf_index+(2 * n2 - m + 1)];
+        bk[bkf_index + (2 * n2 - m)] = bk[m] * xn2;
+        bk[bkf_index + m] = bk[bkf_index + (2 * n2 - m)];
+
+        bk[bkf_index + (2 * n2 - m + 1)] = bk[m + 1] * xn2;
+        bk[bkf_index + m + 1] = bk[bkf_index + (2 * n2 - m + 1)];
         m += 2;
     }
 
     m = length * 2;
-    
+
     while m <= (2 * n2 - 2 * (length) + 1) {
-        bk[bkf_index+m] = 0.0f64;
+        bk[bkf_index + m] = 0.0f64;
         m += 1;
     }
     tmp_fftblue_plan_i.plan = make_cfftp_plan(n2);
     if tmp_fftblue_plan_i.plan.is_null() {
         return null_mut();
     }
-    let cfftp_plan_ref = unsafe {&mut *tmp_fftblue_plan_i.plan};
+    let cfftp_plan_ref = unsafe { &mut *tmp_fftblue_plan_i.plan };
     if cfftp_forward(cfftp_plan_ref, &mut bk[bkf_index..], 1.0f64) != 0 {
         return null_mut();
     }
-    
+
     let plan: fftblue_plan = Box::into_raw(Box::new(tmp_fftblue_plan_i));
     return plan;
 }
@@ -4188,7 +3945,7 @@ fn fftblue_fft(plan: &mut fftblue_plan_i, c: &mut [f64], isign: i32, fct: f64) -
         akf[m] = 0.0;
         m += 1;
     }
-    let cfftp_plan_ref = unsafe{&mut *plan.plan};
+    let cfftp_plan_ref = unsafe { &mut *plan.plan };
     let res = cfftp_forward(cfftp_plan_ref, akf.as_mut_slice(), fct);
     if res != 0 {
         return -1;
@@ -4196,16 +3953,16 @@ fn fftblue_fft(plan: &mut fftblue_plan_i, c: &mut [f64], isign: i32, fct: f64) -
     if isign > 0 {
         let mut m: usize = 0;
         while m < (n2 * 2) {
-            let im: f64 = -akf[m] * bk[bkf_index+m + 1] + akf[m + 1] * bk[bkf_index+m];
-            akf[m] = akf[m] * bk[bkf_index+m] + akf[m + 1] * bk[bkf_index+m + 1];
+            let im: f64 = -akf[m] * bk[bkf_index + m + 1] + akf[m + 1] * bk[bkf_index + m];
+            akf[m] = akf[m] * bk[bkf_index + m] + akf[m + 1] * bk[bkf_index + m + 1];
             akf[m + 1] = im;
             m += 2;
         }
     } else {
         let mut m: usize = 0;
         while m < (n2 * 2) {
-            let im: f64 = akf[m] * bk[bkf_index+m + 1] + akf[m + 1] * bk[bkf_index+m];
-            akf[m] = akf[m] * bk[bkf_index+m] - akf[m + 1] * bk[bkf_index+m + 1];
+            let im: f64 = akf[m] * bk[bkf_index + m + 1] + akf[m + 1] * bk[bkf_index + m];
+            akf[m] = akf[m] * bk[bkf_index + m] - akf[m + 1] * bk[bkf_index + m + 1];
             akf[m + 1] = im;
             m += 2;
         }
@@ -4245,7 +4002,7 @@ fn rfftblue_backward(plan: &mut fftblue_plan_i, c: &mut [f64], fct: f64) -> i32 
     let mut tmp = vec![0.0f64; 2 * n];
     tmp[0] = c[0];
     tmp[1] = 0.0f64;
-    tmp[2..n+1].copy_from_slice(&c[1..]);
+    tmp[2..n + 1].copy_from_slice(&c[1..]);
     if n & 1 == 0 {
         tmp[n + 1] = 0.0f64;
     }
@@ -4275,12 +4032,12 @@ fn rfftblue_forward(plan: &mut fftblue_plan_i, c: &mut [f64], fct: f64) -> i32 {
         tmp[2 * m + 1] = 0.0f64;
         m += 1;
     }
-    let res =  fftblue_fft(plan, tmp.as_mut_slice(), -1, fct);
+    let res = fftblue_fft(plan, tmp.as_mut_slice(), -1, fct);
     if res != 0 {
         return -1;
     }
     c[0] = tmp[0];
-    c[1..].copy_from_slice(&tmp[2..n+1]);
+    c[1..].copy_from_slice(&tmp[2..n + 1]);
     return 0;
 }
 
@@ -4336,25 +4093,27 @@ pub unsafe extern "C" fn destroy_cfft_plan(plan: cfft_plan) {
 }
 #[no_mangle]
 pub unsafe extern "C" fn cfft_backward(plan: cfft_plan, c: *mut f64, fct: f64) -> i32 {
+    assert!(!c.is_null(), "null");
     if !(*plan).packplan.is_null() {
         let len = (*(*plan).packplan).length;
-        let c = std::slice::from_raw_parts_mut(c, len);
-        return cfftp_backward(&mut *(*plan).packplan, c, fct);
+        let tmp_c = std::slice::from_raw_parts_mut(c, len);
+        return cfftp_backward(&mut *(*plan).packplan, tmp_c, fct);
     }
     let n: usize = (*(*plan).blueplan).n;
-    let c = from_raw_parts_mut(c, n * 2);
-    return cfftblue_backward(&mut *(*plan).blueplan, c, fct);
+    let tmp_c = from_raw_parts_mut(c, n * 2);
+    return cfftblue_backward(&mut *(*plan).blueplan, tmp_c, fct);
 }
 #[no_mangle]
 pub unsafe extern "C" fn cfft_forward(plan: cfft_plan, c: *mut f64, fct: f64) -> i32 {
+    assert!(!c.is_null(), "null");
     if !(*plan).packplan.is_null() {
         let len = (*(*plan).packplan).length;
         let c = std::slice::from_raw_parts_mut(c, len);
         return cfftp_forward(&mut *(*plan).packplan, c, fct);
     }
     let n: usize = (*(*plan).blueplan).n;
-    let c = from_raw_parts_mut(c, n * 2);
-    return cfftblue_forward(&mut *(*plan).blueplan, c, fct);
+    let tmp_c = from_raw_parts_mut(c, n * 2);
+    return cfftblue_forward(&mut *(*plan).blueplan, tmp_c, fct);
 }
 
 #[no_mangle]
@@ -4427,36 +4186,60 @@ pub unsafe extern "C" fn cfft_length(plan: cfft_plan) -> usize {
 }
 #[no_mangle]
 pub unsafe extern "C" fn rfft_backward(plan: rfft_plan, c: *mut f64, fct: f64) -> i32 {
+    assert!(!c.is_null(), "null");
     if !(*plan).packplan.is_null() {
         let n: usize = (*(*plan).packplan).length;
-        let c = from_raw_parts_mut(c, n);
-        return rfftp_backward(&mut *(*plan).packplan, c, fct);
+        let tmp_c = from_raw_parts_mut(c, n);
+        return rfftp_backward(&mut *(*plan).packplan, tmp_c, fct);
     } else {
         let n: usize = (*(*plan).blueplan).n;
-        let c = from_raw_parts_mut(c, n);
-        return rfftblue_backward(&mut *(*plan).blueplan, c, fct);
+        let tmp_c = from_raw_parts_mut(c, n);
+        return rfftblue_backward(&mut *(*plan).blueplan, tmp_c, fct);
     }
 }
 #[no_mangle]
 pub unsafe extern "C" fn rfft_forward(plan: rfft_plan, c: *mut f64, fct: f64) -> i32 {
+    assert!(!c.is_null(), "null");
     if !(*plan).packplan.is_null() {
         let n: usize = (*(*plan).packplan).length;
-        let c = from_raw_parts_mut(c, n);
-        return rfftp_forward(&mut *(*plan).packplan, c, fct);
+        let tmp_c = from_raw_parts_mut(c, n);
+        return rfftp_forward(&mut *(*plan).packplan, tmp_c, fct);
     } else {
         let n: usize = (*(*plan).blueplan).n;
-        let c = from_raw_parts_mut(c, n);
-        return rfftblue_forward(&mut *(*plan).blueplan, c, fct);
+        let tmp_c = from_raw_parts_mut(c, n);
+        return rfftblue_forward(&mut *(*plan).blueplan, tmp_c, fct);
     }
 }
 
 //=========================================================
 //=========================================================
 pub fn make_rfft_plan_safe(length: usize) -> RfftPlan {
-    
     let mut plan: RfftPlan = RfftPlan {
-        packplan: RfftpPlan{length:0, nfct: 0, mem: Vec::new(), fct: [RfftpFctdata{fct:0, tw_index: 0, tws_index: 0}; NFCT]}, 
-        blueplan: FftbluePlan{n:length, n2:good_size(length * 2 - 1), mem: Vec::new(), plan: CfftpPlan{length:0, nfct:0, mem: Vec::new(),fct: [CfftpFctdata{fct:0, tw_index: 0, tws_index: 0};NFCT]}}
+        packplan: RfftpPlan {
+            length: 0,
+            nfct: 0,
+            mem: Vec::new(),
+            fct: [RfftpFctdata {
+                fct: 0,
+                tw_index: 0,
+                tws_index: 0,
+            }; NFCT],
+        },
+        blueplan: FftbluePlan {
+            n: length,
+            n2: good_size(length * 2 - 1),
+            mem: Vec::new(),
+            plan: CfftpPlan {
+                length: 0,
+                nfct: 0,
+                mem: Vec::new(),
+                fct: [CfftpFctdata {
+                    fct: 0,
+                    tw_index: 0,
+                    tws_index: 0,
+                }; NFCT],
+            },
+        },
     };
     //plan.blueplan.mem = vec![0.0f64; 2 * (plan.blueplan).n + 2 * (plan.blueplan).n2];
     let length_sqrt = (length as f64).sqrt() as usize;
@@ -4476,9 +4259,23 @@ pub fn make_rfft_plan_safe(length: usize) -> RfftPlan {
 }
 
 fn make_fftblue_plan_safe(length: usize) -> FftbluePlan {
-    let tmp_fct = [CfftpFctdata{fct: 0, tw_index: 0, tws_index: 0}; NFCT];
-    let tmp_cfftp_plan = CfftpPlan{length: 0, nfct: 0, mem: Vec::new(),  fct: tmp_fct};
-    let mut plan: FftbluePlan = FftbluePlan{n: 0, n2: 0, plan: tmp_cfftp_plan, mem: Vec::new()};
+    let tmp_fct = [CfftpFctdata {
+        fct: 0,
+        tw_index: 0,
+        tws_index: 0,
+    }; NFCT];
+    let tmp_cfftp_plan = CfftpPlan {
+        length: 0,
+        nfct: 0,
+        mem: Vec::new(),
+        fct: tmp_fct,
+    };
+    let mut plan: FftbluePlan = FftbluePlan {
+        n: 0,
+        n2: 0,
+        plan: tmp_cfftp_plan,
+        mem: Vec::new(),
+    };
 
     (plan).n = length;
     let n2 = good_size(length * 2 - 1);
@@ -4505,20 +4302,20 @@ fn make_fftblue_plan_safe(length: usize) -> FftbluePlan {
     let xn2: f64 = 1.0f64 / (plan).n2 as f64;
     let bkf_index = length * 2;
     bk[bkf_index] = bk[0] * xn2;
-    bk[bkf_index+1] = bk[1] * xn2;
+    bk[bkf_index + 1] = bk[1] * xn2;
     m = 2;
     while m < length * 2 {
-        bk[bkf_index+(2 * n2 - m)] = bk[m] * xn2;
-        bk[bkf_index+m] = bk[bkf_index+(2 * n2 - m)];
-        
-        bk[bkf_index+(2 * n2 - m + 1)] = bk[m + 1] * xn2;
-        bk[bkf_index+m + 1] = bk[bkf_index+(2 * n2 - m + 1)];
+        bk[bkf_index + (2 * n2 - m)] = bk[m] * xn2;
+        bk[bkf_index + m] = bk[bkf_index + (2 * n2 - m)];
+
+        bk[bkf_index + (2 * n2 - m + 1)] = bk[m + 1] * xn2;
+        bk[bkf_index + m + 1] = bk[bkf_index + (2 * n2 - m + 1)];
         m += 2;
     }
 
     m = length * 2;
     while m <= (2 * ((plan).n2) - 2 * ((plan).n) + 1) {
-        bk[bkf_index+m] = 0.0f64;
+        bk[bkf_index + m] = 0.0f64;
         m += 1;
     }
     (plan).plan = make_cfftp_plan_safe((plan).n2);
@@ -4529,14 +4326,14 @@ fn make_fftblue_plan_safe(length: usize) -> FftbluePlan {
 }
 
 fn cfftp_forward_safe(plan: &mut CfftpPlan, c: &mut [f64], fct: f64) -> i32 {
-    let c = unsafe{std::mem::transmute::<&mut [f64], &mut [cmplx]>(c)};
-    
+    let c = unsafe { std::mem::transmute::<&mut [f64], &mut [cmplx]>(c) };
+
     return pass_all_safe(plan, c, fct, -1);
 }
 
 fn cfftp_backward_safe(plan: &mut CfftpPlan, c: &mut [f64], fct: f64) -> i32 {
-    let c = unsafe{std::mem::transmute::<&mut [f64], &mut [cmplx]>(c)};
-    
+    let c = unsafe { std::mem::transmute::<&mut [f64], &mut [cmplx]>(c) };
+
     return pass_all_safe(plan, c, fct, 1);
 }
 
@@ -4560,15 +4357,15 @@ fn pass_all_safe(plan: &mut CfftpPlan, c: &mut [cmplx], fct: f64, sign: i32) -> 
         let wa = &plan.mem[plan.fct[k1].tw_index..];
         if ip == 4 {
             if sign > 0 {
-                pass4b(ido,l1,p1,p2, wa);
+                pass4b(ido, l1, p1, p2, wa);
             } else {
-                pass4f(ido,l1,p1,p2, wa);
+                pass4f(ido, l1, p1, p2, wa);
             };
         } else if ip == 2 {
             if sign > 0 {
-                pass2b(ido,l1,p1,p2, wa);
+                pass2b(ido, l1, p1, p2, wa);
             } else {
-                pass2f(ido,l1,p1,p2, wa);
+                pass2f(ido, l1, p1, p2, wa);
             };
         } else if ip == 3 {
             if sign > 0 {
@@ -4588,7 +4385,7 @@ fn pass_all_safe(plan: &mut CfftpPlan, c: &mut [cmplx], fct: f64, sign: i32) -> 
             pass11(ido, l1, p1, p2, wa, sign as i64);
         } else {
             let csarr = &plan.mem[plan.fct[k1].tws_index..];
-            let res = passg(ido, ip, l1, p1, p2, wa, csarr,sign as i64,);
+            let res = passg(ido, ip, l1, p1, p2, wa, csarr, sign as i64);
             if res != 0 {
                 return -1;
             }
@@ -4617,8 +4414,16 @@ fn pass_all_safe(plan: &mut CfftpPlan, c: &mut [cmplx], fct: f64, sign: i32) -> 
 }
 
 fn make_rfftp_plan_safe(length: usize) -> RfftpPlan {
-    
-    let mut plan: RfftpPlan = RfftpPlan{length, nfct: 0, mem: Vec::new(), fct:[RfftpFctdata{fct: 0, tw_index: 0, tws_index: 0}; NFCT]};
+    let mut plan: RfftpPlan = RfftpPlan {
+        length,
+        nfct: 0,
+        mem: Vec::new(),
+        fct: [RfftpFctdata {
+            fct: 0,
+            tw_index: 0,
+            tws_index: 0,
+        }; NFCT],
+    };
 
     if length == 1 {
         return plan;
@@ -4800,12 +4605,12 @@ fn rfftblue_forward_safe(plan: &mut FftbluePlan, c: &mut [f64], fct: f64) -> i32
         tmp[2 * m + 1] = 0.0f64;
         m += 1;
     }
-    let res =  fftblue_fft_safe(plan, tmp.as_mut_slice(), -1, fct);
+    let res = fftblue_fft_safe(plan, tmp.as_mut_slice(), -1, fct);
     if res != 0 {
         return -1;
     }
     c[0] = tmp[0];
-    c[1..n].copy_from_slice(&tmp[2..n+1]);
+    c[1..n].copy_from_slice(&tmp[2..n + 1]);
     return 0;
 }
 
@@ -4842,16 +4647,16 @@ fn fftblue_fft_safe(plan: &mut FftbluePlan, c: &mut [f64], isign: i32, fct: f64)
     if isign > 0 {
         let mut m: usize = 0;
         while m < (n2 * 2) {
-            let im: f64 = -akf[m] * bk[bkf_index+m + 1] + akf[m + 1] * bk[bkf_index+m];
-            akf[m] = akf[m] * bk[bkf_index+m] + akf[m + 1] * bk[bkf_index+m + 1];
+            let im: f64 = -akf[m] * bk[bkf_index + m + 1] + akf[m + 1] * bk[bkf_index + m];
+            akf[m] = akf[m] * bk[bkf_index + m] + akf[m + 1] * bk[bkf_index + m + 1];
             akf[m + 1] = im;
             m += 2;
         }
     } else {
         let mut m: usize = 0;
         while m < (n2 * 2) {
-            let im: f64 = akf[m] * bk[bkf_index+m + 1] + akf[m + 1] * bk[bkf_index+m];
-            akf[m] = akf[m] * bk[bkf_index+m] - akf[m + 1] * bk[bkf_index+m + 1];
+            let im: f64 = akf[m] * bk[bkf_index + m + 1] + akf[m + 1] * bk[bkf_index + m];
+            akf[m] = akf[m] * bk[bkf_index + m] - akf[m + 1] * bk[bkf_index + m + 1];
             akf[m + 1] = im;
             m += 2;
         }
@@ -4879,12 +4684,11 @@ fn fftblue_fft_safe(plan: &mut FftbluePlan, c: &mut [f64], isign: i32, fct: f64)
 }
 
 fn make_cfftp_plan_safe(length: usize) -> CfftpPlan {
-    
-    let mut plan:CfftpPlan = Default::default();
+    let mut plan: CfftpPlan = Default::default();
 
     (plan).length = length;
     (plan).nfct = 0;
-    
+
     if length == 1 {
         return plan;
     }
@@ -4999,7 +4803,6 @@ fn cfftp_comp_twiddle_safe(plan: &mut CfftpPlan) -> i32 {
                 tws[j].i = twid[2 * j * l1 * ido + 1];
             }
             memofs += ip;
-            
         }
         l1 *= ip;
         k += 1;
@@ -5008,7 +4811,7 @@ fn cfftp_comp_twiddle_safe(plan: &mut CfftpPlan) -> i32 {
 }
 
 pub fn rfft_backward_safe(plan: &mut RfftPlan, c: &mut [f64], fct: f64) -> i32 {
-    if plan.packplan.length!=0 {
+    if plan.packplan.length != 0 {
         return rfftp_backward_safe(&mut plan.packplan, c, fct);
     } else {
         return rfftblue_backward_safe(&mut plan.blueplan, c, fct);
@@ -5060,7 +4863,7 @@ fn rfftblue_backward_safe(plan: &mut FftbluePlan, c: &mut [f64], fct: f64) -> i3
     let mut tmp = vec![0.0f64; 2 * n];
     tmp[0] = c[0];
     tmp[1] = 0.0f64;
-    tmp[2..n+1].copy_from_slice(&c[1..n]);
+    tmp[2..n + 1].copy_from_slice(&c[1..n]);
     if n & 1 == 0 {
         tmp[n + 1] = 0.0f64;
     }
@@ -5082,9 +4885,12 @@ fn rfftblue_backward_safe(plan: &mut FftbluePlan, c: &mut [f64], fct: f64) -> i3
 }
 
 pub fn make_cfft_plan_safe(length: usize) -> CfftPlan {
-    let tmp_packplan:CfftpPlan = Default::default();
-    let tmp_blueplan:FftbluePlan = Default::default();
-    let mut plan = CfftPlan{packplan:tmp_packplan, blueplan: tmp_blueplan};
+    let tmp_packplan: CfftpPlan = Default::default();
+    let tmp_blueplan: FftbluePlan = Default::default();
+    let mut plan = CfftPlan {
+        packplan: tmp_packplan,
+        blueplan: tmp_blueplan,
+    };
     if (length < 50) || (largest_prime_factor(length) <= ((length as f64).sqrt() as usize)) {
         (plan).packplan = make_cfftp_plan_safe(length);
         return plan;

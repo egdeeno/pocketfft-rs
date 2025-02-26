@@ -1,6 +1,6 @@
 [package]
 name = "pocketfft-rs"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2018"
 rust-version = "1.56"
 description = "Rust pocketfft lib"
@@ -17,18 +17,18 @@ crate-type = ["cdylib", "staticlib", "rlib"]
 
 [profile.release]
 opt-level = 'z'
-lto = true # enable link time optimization
+lto = true      # enable link time optimization
 panic = "abort" # disable stack unwinding on panic
 strip = true
 
 [profile.dev]
 opt-level = 0
-lto = false # disable link time optimization
+lto = false     # disable link time optimization
 panic = "abort" # disable stack unwinding on panic
 
 [profile.test]
 opt-level = 3
-lto = false # disable link time optimization
+lto = false   # disable link time optimization
 
 [dev-dependencies]
-libc = "0.2.147"
+libc = "0.2.170"

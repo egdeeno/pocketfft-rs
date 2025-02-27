@@ -2576,7 +2576,7 @@ fn make_cfftp_plan(length: usize) -> cfftp_plan {
 }
 
 fn destroy_cfftp_plan(plan: cfftp_plan) {
-    assert!(!plan.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
     unsafe {
         let _ = Box::from_raw(plan);
     }
@@ -3844,6 +3844,7 @@ fn make_rfftp_plan(length: usize) -> rfftp_plan {
 }
 
 fn destroy_rfftp_plan(plan: rfftp_plan) {
+    assert!(!plan.is_null(), "plan is null");
     unsafe {
         let _ = Box::from_raw(plan);
     }
@@ -3914,7 +3915,7 @@ fn make_fftblue_plan(length: usize) -> fftblue_plan {
 }
 
 fn destroy_fftblue_plan(plan: fftblue_plan) {
-    assert!(!plan.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
     unsafe {
         destroy_cfftp_plan((*plan).plan);
         let _ = Box::from_raw(plan);
@@ -4095,8 +4096,8 @@ pub unsafe extern "C" fn destroy_cfft_plan(plan: cfft_plan) {
 }
 #[no_mangle]
 pub unsafe extern "C" fn cfft_backward(plan: cfft_plan, c: *mut f64, fct: f64) -> i32 {
-    assert!(!plan.is_null(), "null");
-    assert!(!c.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
+    assert!(!c.is_null(), "c is null");
     if !(*plan).packplan.is_null() {
         let len = (*(*plan).packplan).length;
         let tmp_c = std::slice::from_raw_parts_mut(c, len);
@@ -4108,8 +4109,8 @@ pub unsafe extern "C" fn cfft_backward(plan: cfft_plan, c: *mut f64, fct: f64) -
 }
 #[no_mangle]
 pub unsafe extern "C" fn cfft_forward(plan: cfft_plan, c: *mut f64, fct: f64) -> i32 {
-    assert!(!plan.is_null(), "null");
-    assert!(!c.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
+    assert!(!c.is_null(), "c is null");
     if !(*plan).packplan.is_null() {
         let len = (*(*plan).packplan).length;
         let c = std::slice::from_raw_parts_mut(c, len);
@@ -4166,7 +4167,7 @@ pub unsafe extern "C" fn make_rfft_plan(length: usize) -> rfft_plan {
 
 #[no_mangle]
 pub unsafe extern "C" fn destroy_rfft_plan(plan: rfft_plan) {
-    assert!(!plan.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
     if !(*plan).blueplan.is_null() {
         destroy_fftblue_plan((*plan).blueplan);
     }
@@ -4177,7 +4178,7 @@ pub unsafe extern "C" fn destroy_rfft_plan(plan: rfft_plan) {
 }
 #[no_mangle]
 pub unsafe extern "C" fn rfft_length(plan: rfft_plan) -> usize {
-    assert!(!plan.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
     if !(*plan).packplan.is_null() {
         return (*(*plan).packplan).length;
     }
@@ -4185,7 +4186,7 @@ pub unsafe extern "C" fn rfft_length(plan: rfft_plan) -> usize {
 }
 #[no_mangle]
 pub unsafe extern "C" fn cfft_length(plan: cfft_plan) -> usize {
-    assert!(!plan.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
     if !(*plan).packplan.is_null() {
         return (*(*plan).packplan).length;
     }
@@ -4193,8 +4194,8 @@ pub unsafe extern "C" fn cfft_length(plan: cfft_plan) -> usize {
 }
 #[no_mangle]
 pub unsafe extern "C" fn rfft_backward(plan: rfft_plan, c: *mut f64, fct: f64) -> i32 {
-    assert!(!plan.is_null(), "null");
-    assert!(!c.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
+    assert!(!c.is_null(), "c is null");
     if !(*plan).packplan.is_null() {
         let n: usize = (*(*plan).packplan).length;
         let tmp_c = from_raw_parts_mut(c, n);
@@ -4207,8 +4208,8 @@ pub unsafe extern "C" fn rfft_backward(plan: rfft_plan, c: *mut f64, fct: f64) -
 }
 #[no_mangle]
 pub unsafe extern "C" fn rfft_forward(plan: rfft_plan, c: *mut f64, fct: f64) -> i32 {
-    assert!(!plan.is_null(), "null");
-    assert!(!c.is_null(), "null");
+    assert!(!plan.is_null(), "plan is null");
+    assert!(!c.is_null(), "c is null");
     if !(*plan).packplan.is_null() {
         let n: usize = (*(*plan).packplan).length;
         let tmp_c = from_raw_parts_mut(c, n);

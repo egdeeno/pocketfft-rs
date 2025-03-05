@@ -13,7 +13,10 @@ keywords = ["FFT"]
 
 [lib]
 name = "pocketfft_rs"
-crate-type = ["cdylib", "staticlib", "rlib"]
+crate-type = ["cdylib", "staticlib", "lib"]
+
+[dependencies]
+mimalloc = { version = "0.1.43", features = ["secure"] }
 
 [profile.release]
 opt-level = 'z'

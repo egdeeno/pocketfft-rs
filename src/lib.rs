@@ -1,6 +1,10 @@
 #![allow(non_camel_case_types)]
+use mimalloc::MiMalloc;
 use std::ptr::null_mut;
 use std::slice::from_raw_parts_mut;
+
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
 
 const NFCT: usize = 25;
 
@@ -44,7 +48,7 @@ pub struct cmplx {
 }
 impl PartialEq for cmplx {
     fn eq(&self, other: &Self) -> bool {
-        self.r == other.r && self.i == other.i
+        return self.r == other.r && self.i == other.i;
     }
 }
 
